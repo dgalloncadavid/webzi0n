@@ -2,7 +2,8 @@
 /* Paso numerado.
    variant: card    (tarjeta oscura con número en círculo e ícono en la esquina)
             compact (fila de lista: número, título y texto; checkout)
-   tone: aurora | signal | alert (color del número en la variante card) */
+   tone: aurora | signal | alert (color del número en la variante card)
+   card es superficie fija oscura (Card dark); compact se adapta al tema. */
 import Card from './Card.vue'
 import Icon from './Icon.vue'
 
@@ -32,8 +33,8 @@ const TONE = { aurora: 'c-aur', signal: 'c-sig', alert: 'c-alt' }
   .step .sico{right:16px;top:22px;width:22px;height:22px}
 }
 
-.step-c{display:flex;gap:var(--zn-space-14);align-items:flex-start;padding:var(--zn-space-14) var(--zn-space-16);border-radius:var(--zn-radius-14);background:var(--color-glass-checkout);border:1px solid var(--color-line)}
+.step-c{display:flex;gap:var(--zn-space-14);align-items:flex-start;padding:var(--zn-space-14) var(--zn-space-16);border-radius:var(--zn-radius-14);background:var(--ui-option);border:1px solid var(--ui-line);color:var(--ui-text)}
 .step-c>span{width:30px;height:30px;border-radius:var(--radius-round);display:grid;place-items:center;background:rgba(var(--rgb-aurora),.18);font:var(--zn-weight-extrabold) 14px/1 var(--font-mono);flex:none}
 .step-c b{font:var(--zn-weight-semibold) 15px/22px var(--font-sans)}
-.step-c p{font:var(--zn-weight-regular) 13px/19px var(--font-sans);color:var(--color-ice)}
+.step-c p{font:var(--zn-weight-regular) 13px/19px var(--font-sans);color:var(--ui-text-2)}
 </style>

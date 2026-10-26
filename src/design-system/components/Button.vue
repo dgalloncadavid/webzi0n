@@ -1,7 +1,8 @@
 <script setup>
 /* Botón o enlace con forma de botón.
    variant: primary | ghost | navy | secondary | text
-   size:    sm | md | lg | xl  (xl es la densidad del checkout: 52 px de alto y radio 12) */
+   size:    sm | md | lg | xl  (xl es la densidad del checkout: 52 px de alto y radio 12)
+   primary, navy y secondary tienen fondo propio; ghost y text toman los colores del tema. */
 import { computed, toRef } from 'vue'
 import { useLinkTo } from '../composables/useLinkTo'
 
@@ -40,8 +41,8 @@ const classes = computed(() => ['btn', props.size && 'btn-' + props.size, 'btn-'
 .btn-md{padding:var(--zn-space-12) var(--zn-space-24);font-size:15px;line-height:22px}
 .btn-primary{background:var(--color-signal);color:var(--color-ink)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-button-primary-hover)}
-.btn-ghost{border:1px solid var(--color-line-ghost);color:var(--color-mist)}
-.btn-ghost:hover{transform:translateY(-2px);border-color:var(--color-ice);background:rgba(var(--rgb-white),.04)}
+.btn-ghost{border:1px solid var(--ui-border-ghost);color:var(--ui-text)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--ui-hover-border);background:var(--ui-hover)}
 .btn-navy{background:var(--color-navy);color:var(--color-mist)}
 .btn-navy:hover{transform:translateY(-2px);background:var(--zn-navy-hover);box-shadow:var(--shadow-button-navy-hover)}
 .btn-secondary{background:var(--color-navy);color:var(--color-mist)}
@@ -51,9 +52,9 @@ const classes = computed(() => ['btn', props.size && 'btn-' + props.size, 'btn-'
 .btn-xl{min-height:52px;padding:var(--zn-space-14) var(--zn-space-26);border-radius:var(--radius-button-checkout);font:var(--zn-weight-semibold) 16px/24px var(--font-sans);transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-base),background var(--dur-base),border-color var(--dur-base),opacity var(--dur-base)}
 .btn-xl :deep(.ico){width:18px;height:18px}
 .btn-xl.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-button-primary-hover-checkout)}
-.btn-primary[aria-disabled="true"]{background:rgba(var(--rgb-ice),.14);color:rgba(var(--rgb-mist),.45);box-shadow:none;transform:none}
-.btn-xl.btn-ghost{border-color:var(--color-line-strong)}
+.btn-primary[aria-disabled="true"]{background:var(--ui-disabled);color:var(--ui-disabled-text);box-shadow:none;transform:none}
+.btn-xl.btn-ghost{border-color:var(--ui-border)}
 .btn-xl.btn-ghost:hover{transform:none}
-.btn-text{padding:var(--zn-space-14) var(--zn-space-12);color:var(--color-ice);text-decoration:underline;text-underline-offset:4px;font-weight:var(--zn-weight-medium)}
-.btn-text:hover{color:var(--color-mist)}
+.btn-text{padding:var(--zn-space-14) var(--zn-space-12);color:var(--ui-text-2);text-decoration:underline;text-underline-offset:4px;font-weight:var(--zn-weight-medium)}
+.btn-text:hover{color:var(--ui-text)}
 </style>

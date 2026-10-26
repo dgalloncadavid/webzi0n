@@ -1,6 +1,7 @@
 <script setup>
 /* Barra de acciones fija abajo del checkout: atrás, "aún tengo dudas", aviso,
-   total y botón principal. backTo convierte "Atrás" en enlace. */
+   total y botón principal. backTo convierte "Atrás" en enlace.
+   Superficie fija: oscura. */
 import Icon from './Icon.vue'
 import Button from './Button.vue'
 import { useT } from '../composables/useLang'
@@ -20,7 +21,7 @@ const { t } = useT()
 </script>
 
 <template>
-<div class="bar" id="bar">
+<div class="bar" id="bar" data-theme="dark">
   <div class="bar-in">
     <div class="bar-l">
       <Button :to="backTo" size="xl" variant="ghost" id="bBack" :hidden="!showBack" @click="!backTo && emit('back')"><span class="ico"><Icon name="arrow-left" /></span><span class="bl">{{ t('Atrás') }}</span></Button>

@@ -30,6 +30,8 @@ import RadioCard from '@/design-system/components/RadioCard.vue'
 import PaymentMethod from '@/design-system/components/PaymentMethod.vue'
 import OrderSummary from '@/design-system/components/OrderSummary.vue'
 import StickyBar from '@/design-system/components/StickyBar.vue'
+import CalloutCard from '@/design-system/components/CalloutCard.vue'
+import { colorsIn, over, contrast, toHex, MIN } from '@/design-system/a11y/contrast'
 import home from '@/i18n/en/home'
 import cripto from '@/i18n/en/cripto'
 import grapheneos from '@/i18n/en/grapheneos'
@@ -130,9 +132,81 @@ const navLinks = [{ label: 'Cómo funciona', to: '#ds-nav' }, { label: 'Para qui
 const legal = [{ label: 'Aviso legal', to: '#' }, { label: 'Términos y condiciones', to: '#' }, { label: 'Política de cookies', to: '#' }]
 const storeIcons = (list) => list.map((a) => asset('assets/compra/apps/') + a + '.png')
 
+/* ---------- accesibilidad: pares de color de cada tema, medidos con los tokens vigentes ----------
+   fg y bg: clave de --ui-*, 'tint:<color>:<alfa>' (tinte sobre el fondo del tema) o 'const:<color>' (primitivo fijo).
+   kind: text (4.5:1), ui (íconos, bordes, divisores y foco: 3:1), disabled (sin mínimo, debe leerse). */
+const PAIRS = [
+  ['Texto primario', 'text', 'bg', 'text'],
+  ['Texto primario sobre card', 'text', 'card', 'text'],
+  ['Texto secundario', 'text-2', 'bg', 'text'],
+  ['Texto secundario sobre card', 'text-2', 'card', 'text'],
+  ['Texto atenuado', 'muted', 'bg', 'text'],
+  ['Texto atenuado sobre card', 'muted', 'card', 'text'],
+  ['Eyebrow sobre card', 'eyebrow', 'card', 'text'],
+  ['Placeholder en campo', 'placeholder', 'field', 'text'],
+  ['Enlace al pasar el puntero', 'hover-text', 'bg', 'text'],
+  ['Acento signal', 'accent-signal', 'bg', 'text'],
+  ['Acento aurora (enlaces)', 'accent-aurora', 'bg', 'text'],
+  ['Acento alert (errores)', 'accent-alert', 'bg', 'text'],
+  ['Acento amber (avisos)', 'accent-amber', 'bg', 'text'],
+  ['Tag signal sobre su tinte', 'accent-signal', 'tint:signal:.16', 'text'],
+  ['Tag amber sobre su tinte', 'accent-amber', 'tint:amber:.14', 'text'],
+  ['Badge sobre tinte aurora', 'text', 'tint:aurora:.1', 'text'],
+  ['Badge fuerte sobre tinte alert', 'text', 'tint:alert:.16', 'text'],
+  ['Texto en botón primario', 'on-accent', 'const:signal', 'text'],
+  ['Texto en botón navy', 'const:mist', 'const:navy', 'text'],
+  ['Opción elegida (texto)', 'text', 'active', 'text'],
+  ['Deshabilitado', 'disabled-text', 'disabled', 'disabled'],
+  ['Anillo de foco', 'focus', 'bg', 'ui'],
+  ['Anillo de foco sobre card', 'focus', 'card', 'ui'],
+  ['Borde de campo', 'border', 'field', 'ui'],
+  ['Aro del radio', 'border', 'option', 'ui'],
+  ['Selección (borde y punto)', 'active-border', 'option', 'ui'],
+  ['Hover (borde)', 'hover-border', 'bg', 'ui'],
+  ['Divisor', 'divider', 'bg', 'ui'],
+  ['Aro del ícono (FAQ)', 'icon-border', 'bg', 'ui'],
+  ['Ícono (FAQ)', 'text-2', 'option', 'ui'],
+  ['Ícono de campo', 'muted', 'field', 'ui']
+]
+/* pares oscuros por debajo del mínimo que se conservan porque cambiarlos altera el sitio público */
+const KEPT = ['Placeholder en campo', 'Borde de campo', 'Aro del radio', 'Divisor', 'Aro del ícono (FAQ)']
+const a11y = ref([])
+onMounted(() => {
+  a11y.value = ['dark', 'light'].map((theme) => {
+    const probe = document.createElement('div')
+    probe.setAttribute('data-theme', theme)
+    probe.hidden = true
+    document.body.appendChild(probe)
+    const cs = getComputedStyle(probe)
+    const raw = (k) => cs.getPropertyValue('--ui-' + k).trim()
+    const base = colorsIn(raw('bg'))[0]
+    const prim = (name) => colorsIn(getComputedStyle(document.documentElement).getPropertyValue('--zn-' + name))[0]
+    const bgs = (k) => {
+      if (k.startsWith('const:')) return [prim(k.slice(6))]
+      if (k.startsWith('tint:')) { const [, c, a] = k.split(':'); return [over({ ...prim(c), a: +a }, base)] }
+      return colorsIn(raw(k)).map((c) => over(c, base))
+    }
+    const fgOf = (k) => (k.startsWith('const:') ? prim(k.slice(6)) : colorsIn(raw(k))[0])
+    const rows = PAIRS.map(([name, f, b, kind]) => {
+      const fg = fgOf(f)
+      let worst = null
+      for (const bg of bgs(b)) {
+        const c = over(fg, bg)
+        const r = contrast(c, bg)
+        if (!worst || r < worst.r) worst = { r, fg: toHex(c), bg: toHex(bg) }
+      }
+      const min = kind === 'disabled' ? null : MIN[kind]
+      const pass = min === null ? null : worst.r >= min
+      return { name, f, b, kind, min, ...worst, pass, kept: theme === 'dark' && !pass && KEPT.includes(name) }
+    })
+    probe.remove()
+    return { theme, rows }
+  })
+})
+
 const nav = [
-  { title: 'Fundamentos', items: [['color', 'Color'], ['tipografia', 'Tipografía'], ['espaciado', 'Espaciado'], ['radios', 'Radios'], ['sombras', 'Sombras y desenfoque'], ['movimiento', 'Movimiento'], ['breakpoints', 'Breakpoints'], ['iconos', 'Íconos']] },
-  { title: 'Componentes', items: [['ds-button', 'Botones'], ['ds-badge', 'Badges'], ['ds-chip', 'Chips flotantes'], ['ds-lang', 'Selector de idioma'], ['ds-nav', 'Barra de navegación'], ['ds-footer', 'Pie de página'], ['ds-shead', 'Encabezado de sección'], ['ds-card', 'Tarjetas'], ['ds-faq', 'Preguntas frecuentes'], ['ds-plan', 'Tarjetas de plan'], ['ds-route', 'Tarjetas de ruta'], ['ds-tool', 'Herramientas'], ['ds-phone', 'Visual de teléfono'], ['ds-compare', 'Comparador de capas'], ['ds-step', 'Pasos'], ['ds-toast', 'Aviso (toast)'], ['ds-field', 'Campos del checkout'], ['ds-radio', 'Opciones (radio card)'], ['ds-method', 'Método de pago'], ['ds-summary', 'Resumen del pedido'], ['ds-bar', 'Barra fija inferior']] }
+  { title: 'Fundamentos', items: [['color', 'Color'], ['tipografia', 'Tipografía'], ['espaciado', 'Espaciado'], ['radios', 'Radios'], ['sombras', 'Sombras y desenfoque'], ['movimiento', 'Movimiento'], ['breakpoints', 'Breakpoints'], ['iconos', 'Íconos'], ['accesibilidad', 'Accesibilidad']] },
+  { title: 'Componentes', items: [['ds-button', 'Botones'], ['ds-badge', 'Badges'], ['ds-chip', 'Chips flotantes'], ['ds-lang', 'Selector de idioma'], ['ds-nav', 'Barra de navegación'], ['ds-footer', 'Pie de página'], ['ds-shead', 'Encabezado de sección'], ['ds-card', 'Tarjetas'], ['ds-callout', 'Tarjeta de llamada'], ['ds-faq', 'Preguntas frecuentes'], ['ds-plan', 'Tarjetas de plan'], ['ds-route', 'Tarjetas de ruta'], ['ds-tool', 'Herramientas'], ['ds-phone', 'Visual de teléfono'], ['ds-compare', 'Comparador de capas'], ['ds-step', 'Pasos'], ['ds-toast', 'Aviso (toast)'], ['ds-field', 'Campos del checkout'], ['ds-radio', 'Opciones (radio card)'], ['ds-method', 'Método de pago'], ['ds-summary', 'Resumen del pedido'], ['ds-bar', 'Barra fija inferior']] }
 ]
 </script>
 
@@ -176,7 +250,7 @@ const nav = [
       </div>
       <div class="ds-sub">
         <h3 class="h5">{{ t('Roles de color') }}</h3>
-        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>{{ t('Nombre') }}</th><th></th><th>{{ t('Valor') }}</th></tr></thead>
+        <div class="tbl-wrap" tabindex="0" role="region" :aria-label="t('Roles de color')"><table class="tbl"><thead><tr><th>{{ t('Nombre') }}</th><th></th><th>{{ t('Valor') }}</th></tr></thead>
           <tbody><tr v-for="k in semantic" :key="k"><td><code>--color-{{ k }}</code></td><td><span class="dot-sw" :style="{ background: 'var(--color-' + k + ')' }"></span></td><td><code>{{ resolved['--color-' + k] }}</code></td></tr></tbody>
         </table></div>
       </div>
@@ -189,7 +263,7 @@ const nav = [
       <p class="small">JetBrains Mono 500 · 800 / Inter 400 · 500 · 600</p>
       <div v-for="s in typeTables" :key="s.key" class="ds-sub">
         <h3 class="h5">{{ t('Superficie') }} <code>.surface-{{ s.key }}</code> · {{ s.label }}</h3>
-        <div class="tbl-wrap"><table class="tbl type">
+        <div class="tbl-wrap" tabindex="0" role="region" :aria-label="t('Superficie') + ' ' + s.key"><table class="tbl type">
           <thead><tr><th>{{ t('Rol') }}</th><th>{{ t('Muestra') }}</th><th v-for="w in WIDTHS" :key="w">{{ w === 1280 ? t('Escritorio') : w + ' px' }}</th></tr></thead>
           <tbody><tr v-for="r in s.rows" :key="r.role"><td><code>.{{ r.cls.replace(' ', '.') }}</code></td><td :class="s.cls"><span :class="r.cls">{{ t('Privacidad que se borra a tiempo') }}</span></td><td v-for="w in WIDTHS" :key="w"><code>{{ r.at[w].size }} / {{ r.at[w].line }}</code></td></tr></tbody>
         </table></div>
@@ -229,7 +303,7 @@ const nav = [
     <!-- ================= BREAKPOINTS ================= -->
     <section id="breakpoints" class="ds-block">
       <h2 class="h2">{{ t('Breakpoints') }}</h2>
-      <div class="tbl-wrap"><table class="tbl"><tbody><tr v-for="[k, b] in breakpoints" :key="k"><td><code>--zn-bp-{{ k }}</code></td><td><code>{{ b.value }}</code></td><td>{{ b.note }}</td></tr></tbody></table></div>
+      <div class="tbl-wrap" tabindex="0" role="region" :aria-label="t('Breakpoints')"><table class="tbl"><tbody><tr v-for="[k, b] in breakpoints" :key="k"><td><code>--zn-bp-{{ k }}</code></td><td><code>{{ b.value }}</code></td><td>{{ b.note }}</td></tr></tbody></table></div>
     </section>
 
     <!-- ================= ÍCONOS ================= -->
@@ -239,21 +313,42 @@ const nav = [
       <div class="icons"><div v-for="n in icons" :key="n" class="ic-i"><span class="ico"><Icon :name="n" /></span><small>{{ n }}</small></div></div>
     </section>
 
+    <!-- ================= ACCESIBILIDAD ================= -->
+    <section id="accesibilidad" class="ds-block">
+      <h2 class="h2">{{ t('Accesibilidad') }}</h2>
+      <p class="body">{{ t('Cada componente se ve en los dos temas. Los de superficie fija marcan data-theme en su raíz y no heredan colores; los demás leen los tokens --ui-* del contenedor. Los ratios se calculan aquí mismo con los tokens vigentes (WCAG 2.2).') }}</p>
+      <p class="small">{{ t('Mínimos AA: texto 4.5:1 (texto grande 3:1); íconos, bordes de campo, divisores y anillo de foco 3:1. El deshabilitado puede quedar por debajo, pero debe leerse.') }}</p>
+      <div v-for="g in a11y" :key="g.theme" class="ds-sub">
+        <h3 class="h5">{{ g.theme === 'dark' ? t('Tema oscuro') : t('Tema claro') }} <code>[data-theme="{{ g.theme }}"]</code></h3>
+        <div class="tbl-wrap" tabindex="0" role="region" :aria-label="g.theme === 'dark' ? t('Tema oscuro') : t('Tema claro')"><table class="tbl a11y">
+          <thead><tr><th>{{ t('Par') }}</th><th>{{ t('Tokens') }}</th><th>{{ t('Muestra') }}</th><th>{{ t('Ratio') }}</th><th>{{ t('Mínimo') }}</th><th>AA</th></tr></thead>
+          <tbody><tr v-for="r in g.rows" :key="r.name">
+            <td>{{ t(r.name) }}</td>
+            <td><code>{{ r.f }}</code> / <code>{{ r.b }}</code></td>
+            <td><svg class="pair" width="64" height="32" viewBox="0 0 64 32" aria-hidden="true"><rect width="64" height="32" rx="8" :fill="r.bg" /><text v-if="r.kind !== 'ui'" x="32" y="21" text-anchor="middle" :fill="r.fg" font-size="15" font-weight="600" font-family="Inter, sans-serif">Aa</text><rect v-else x="12" y="14" width="40" height="4" rx="2" :fill="r.fg" /></svg></td>
+            <td><code>{{ r.r.toFixed(2) }}:1</code></td>
+            <td><code>{{ r.min ? r.min + ':1' : '-' }}</code></td>
+            <td><span class="verdict" :class="r.pass === null ? 'na' : r.pass ? 'ok' : 'ko'">{{ r.pass === null ? t('Se lee') : r.pass ? t('Pasa') : t('No pasa') }}</span><small v-if="r.kept" class="kept">{{ t('Valor del sitio público; se conserva (ver NOTES.md)') }}</small></td>
+          </tr></tbody>
+        </table></div>
+      </div>
+    </section>
+
     <!-- ================= COMPONENTES ================= -->
     <h2 class="h2 ds-comp-t">{{ t('Componentes') }}</h2>
 
-    <Specimen id="ds-button" dark-only :title="t('Botones')" :text="t('Variantes primary, ghost, navy, secondary y text; tamaños sm, md, lg y xl (densidad del checkout).') + ' ' + t('Hover: pasa el puntero sobre cada ejemplo.')" code='<Button to="/compra?tipo=prueba" variant="primary" size="lg">Probar 15 días</Button>'>
+    <Specimen id="ds-button" :note="t('primary, navy y secondary llevan fondo propio; ghost y text toman el tema.')" :title="t('Botones')" :text="t('Variantes primary, ghost, navy, secondary y text; tamaños sm, md, lg y xl (densidad del checkout).') + ' ' + t('Hover: pasa el puntero sobre cada ejemplo.')" code='<Button to="/compra?tipo=prueba" variant="primary" size="lg">Probar 15 días</Button>'>
       <div class="col">
         <div class="row"><Button variant="primary" size="sm">Primary sm</Button><Button variant="primary" size="md">Primary md</Button><Button variant="primary" size="lg">Primary lg</Button></div>
         <div class="row"><Button variant="ghost" size="sm">Ghost sm</Button><Button variant="ghost" size="md">Ghost md</Button><Button variant="ghost" size="lg">Ghost lg</Button></div>
         <div class="row"><Button variant="navy" size="md">Navy md</Button><Button variant="secondary" size="lg">Secondary lg</Button></div>
         <div class="row surface-checkout"><Button variant="primary" size="xl">Primary xl <span class="ico"><Icon name="arrow-right" /></span></Button><Button variant="ghost" size="xl"><span class="ico"><Icon name="arrow-left" /></span>Ghost xl</Button><Button variant="text" size="xl">Text xl</Button></div>
         <p class="ds-label">{{ t('Estados') }}</p>
-        <div class="row surface-checkout"><Button variant="primary" size="xl">{{ t('Normal') }}</Button><Button variant="primary" size="xl" class="ds-focus">{{ t('Foco') }}</Button><Button variant="primary" size="xl" :disabled="true">{{ t('Desactivado') }}</Button></div>
+        <div class="row surface-checkout"><Button variant="primary" size="xl">{{ t('Normal') }}</Button><Button variant="primary" size="xl" class="ds-focus" tabindex="-1">{{ t('Foco') }}</Button><Button variant="primary" size="xl" :disabled="true">{{ t('Desactivado') }}</Button></div>
       </div>
     </Specimen>
 
-    <Specimen id="ds-badge" dark-only :title="t('Badges')" code='<Badge variant="outline" tone="aurora" size="sm">Ahorras 10%</Badge>'>
+    <Specimen id="ds-badge" :title="t('Badges')" code='<Badge variant="outline" tone="aurora" size="sm">Ahorras 10%</Badge>'>
       <div class="col">
         <div class="row"><Badge tone="signal">signal</Badge><Badge tone="aurora">aurora</Badge><Badge tone="alert">alert</Badge><Badge tone="amber">amber</Badge></div>
         <div class="row"><Badge tone="signal" size="sm">signal sm</Badge><Badge tone="aurora" size="sm">aurora sm</Badge><Badge tone="alert" size="sm">alert sm</Badge></div>
@@ -261,7 +356,7 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-chip" :title="t('Chips flotantes')" code='<FloatingChip variant="glass" tone="alert">Cable detectado · pide PIN</FloatingChip>'>
+    <Specimen id="ds-chip" :fixed="['dark']" :title="t('Chips flotantes')" code='<FloatingChip variant="glass" tone="alert">Cable detectado · pide PIN</FloatingChip>'>
       <div class="col chips-demo">
         <div class="row"><FloatingChip tone="signal">{{ t('App señuelo · activa') }}</FloatingChip><FloatingChip tone="alert">{{ t('Cable detectado · pide PIN') }}</FloatingChip><FloatingChip tone="aurora">{{ t('VPN dinámico · on') }}</FloatingChip><FloatingChip tone="ice">glass · ice</FloatingChip></div>
         <div class="row"><FloatingChip variant="float" tone="signal">{{ t('Capa oculta · activa') }}</FloatingChip><FloatingChip variant="float" tone="alert">{{ t('Cable detectado · PIN requerido') }}</FloatingChip><FloatingChip variant="float" tone="aurora">float · aurora</FloatingChip></div>
@@ -269,21 +364,21 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-lang" dark-only :title="t('Selector de idioma')" code='<LangSwitch />  <LangSwitch variant="compact" :mark-lang="false" />'>
+    <Specimen id="ds-lang" :title="t('Selector de idioma')" code='<LangSwitch />  <LangSwitch variant="compact" :mark-lang="false" />'>
       <LangSwitch /><LangSwitch variant="compact" :mark-lang="false" />
     </Specimen>
 
-    <Specimen id="ds-nav" :title="t('Barra de navegación')" :text="t('Menú móvil: toca el botón de menú dentro de la vista previa.')" code='<Navbar variant="home" home-to="#top" :links="links" :extra-links="extraLinks" />'>
+    <Specimen id="ds-nav" :fixed="['dark']" :title="t('Barra de navegación')" :text="t('Menú móvil: toca el botón de menú dentro de la vista previa.')" code='<Navbar variant="home" home-to="#top" :links="links" :extra-links="extraLinks" />'>
       <div class="col nav-demo">
         <p class="ds-label">home</p><Navbar variant="home" home-to="#ds-nav" :links="navLinks" :extra-links="[{ label: 'GrapheneOS', to: '/grapheneos' }, { label: 'Cripto', to: '/cripto' }]" />
         <p class="ds-label">cripto</p><Navbar variant="cripto" :links="navLinks" />
       </div>
     </Specimen>
-    <div class="previews">
+    <div class="previews" tabindex="0" role="region" :aria-label="t('Vista previa en 390 px')">
       <figure v-for="p in ['/', '/grapheneos', '/cripto']" :key="p"><iframe :src="$router.resolve(p).href" width="390" height="640" loading="lazy" :title="p"></iframe><figcaption><code>{{ p }}</code> · 390 px</figcaption></figure>
     </div>
 
-    <Specimen id="ds-footer" dark-only :title="t('Pie de página')" code='<Footer variant="home" :columns="columns" copyright="© 2026 Zi0n. Todos los derechos reservados." />'>
+    <Specimen id="ds-footer" :note="t('La variante graphene tiene fondo tinta propio: superficie fija oscura.')" :title="t('Pie de página')" code='<Footer variant="home" :columns="columns" copyright="© 2026 Zi0n. Todos los derechos reservados." />'>
       <div class="col foot-demo">
         <p class="ds-label">home</p><Footer variant="home" :columns="[{ title: 'Zi0n', links: [{ label: 'Zi0n Cripto', to: '/cripto' }, { label: 'Comprar', to: '/compra' }] }, { title: 'Legal', links: legal }]" copyright="© 2026 Zi0n. Todos los derechos reservados." />
         <p class="ds-label">cripto</p><Footer variant="cripto" :links="legal" copyright="© 2026 Zi0n Cripto. Todos los derechos reservados." />
@@ -298,19 +393,23 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-card" :title="t('Tarjetas')" code='<Card variant="dark">…</Card>  <Card variant="light">…</Card>'>
+    <Specimen id="ds-card" :fixed="['dark', 'light']" :note="t('dark es siempre oscura y light siempre clara.')" :title="t('Tarjetas')" code='<Card variant="dark">…</Card>  <Card variant="light">…</Card>'>
       <Card class="demo-card"><h3 class="h5">{{ t('Hardware wallet') }}</h3><p class="small">{{ t('Excelente para guardar en frío. Pero no sale contigo a la calle ni sirve para operar a diario.') }}</p></Card>
       <Card variant="light" class="demo-card"><h3 class="h5">{{ t('Datos financieros de terceros') }}</h3><p class="small">{{ t('Balances, accesos a portales y archivos de clientes, fuera de la vista de quien revise tu teléfono.') }}</p></Card>
     </Specimen>
 
-    <Specimen id="ds-faq" dark-only :title="t('Preguntas frecuentes')" code='<Accordion :items="[{ q, a }]" variant="line" :columns="[5, 4]" />'>
+    <Specimen id="ds-callout" :fixed="['dark']" :title="t('Tarjeta de llamada')" :text="t('Ícono, título, texto y botones. Inicio la usa dentro de la sección clara de perfiles.')" code='<CalloutCard icon="users" title="¿Tu caso es otro?" text="…"><Button …/></CalloutCard>'>
+      <CalloutCard class="callout-demo" icon="users" :title="t('¿Tu caso es otro?')" :text="t('Médicos, consultores, activistas o familias: si tu información importa, Zi0n está pensado para ti.')"><Button to="#ds-faq" size="md" variant="ghost">{{ t('Hablar con un asesor') }}</Button><Button to="/compra?tipo=prueba" size="md" variant="primary">{{ t('Probar 15 días') }}</Button></CalloutCard>
+    </Specimen>
+
+    <Specimen id="ds-faq" :title="t('Preguntas frecuentes')" code='<Accordion :items="[{ q, a }]" variant="line" :columns="[5, 4]" />'>
       <div class="col"><Accordion :items="faqItems" variant="line" :columns="[2, 1]" list-id="dsFaq1" /></div>
     </Specimen>
-    <Specimen id="ds-faq-bar" dark-only :title="t('Preguntas frecuentes') + ' · bar'" surface="graphene" code='<Accordion :items="items" variant="bar" />'>
+    <Specimen id="ds-faq-bar" :title="t('Preguntas frecuentes') + ' · bar'" surface="graphene" code='<Accordion :items="items" variant="bar" />'>
       <div class="col faq-bar-demo"><Accordion :items="faqBar" variant="bar" list-id="dsFaq2" /></div>
     </Specimen>
 
-    <Specimen id="ds-plan" :title="t('Tarjetas de plan')" code='<PlanCard name="Anual" price="$500" currency="USD" period="360 días" highlight … />'>
+    <Specimen id="ds-plan" :fixed="['light', 'dark']" :note="t('La destacada es oscura; las demás, claras.')" :title="t('Tarjetas de plan')" code='<PlanCard name="Anual" price="$500" currency="USD" period="360 días" highlight … />'>
       <div class="grid4">
         <PlanCard :name="t('Prueba')" price="$0" :period="t('15 días')" :note="t('Para probar todo antes de pagar')" gift :cta-label="t('Empezar prueba')" cta-to="/compra?tipo=prueba" />
         <PlanCard :name="t('Trimestral')" price="$150" currency="USD" :period="t('90 días')" :note="t('$50 por mes')" :cta-label="t('Elegir 90 días')" cta-to="/compra?tipo=activacion&plan=90" />
@@ -319,7 +418,7 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-route" :title="t('Tarjetas de ruta')" code='<RouteCard to="/cripto" tone="signal" :tags :eyebrow :title :text :items :cta-label />'>
+    <Specimen id="ds-route" :fixed="['dark']" :title="t('Tarjetas de ruta')" code='<RouteCard to="/cripto" tone="signal" :tags :eyebrow :title :text :items :cta-label />'>
       <div class="grid2">
         <RouteCard to="/grapheneos" tone="aurora" :tags="['Pixel', 'GrapheneOS']" :eyebrow="t('Para usuarios de GrapheneOS')" :title="t('Tu GrapheneOS, con red de seguridad')" :text="t('Si ya confías en GrapheneOS en tu Pixel, Zi0n suma avisos, borrado automático y una capa oculta encima de lo que tienes.')" :items="[t('Se instala sobre tu sistema actual'), t('Capa oculta para tus apps más sensibles')]" :cta-label="t('Ver Zi0n para GrapheneOS')" />
         <RouteCard to="/cripto" tone="signal" :tags="['Wallets', 'Web3']" :eyebrow="t('Para quien maneja cripto')" :title="t('Tus wallets en una capa que nadie ve')" :text="t('Guarda wallets y exchanges en la capa oculta. Si alguien revisa tu teléfono, solo verá apps comunes.')" :items="[t('Pagas con USDT o USDC')]" :cta-label="t('Ver Zi0n Cripto')" />
@@ -332,16 +431,16 @@ const nav = [
       <ul class="tools-demo c-sig"><ToolItem icon="world" :title="t('VPN dinámico')" :text="t('Cambia tu salida de red')" /><ToolItem icon="apps" :title="t('Tienda de Zi0n')" :text="t('Apps revisadas para la capa oculta')" active /></ul>
     </Specimen>
 
-    <Specimen id="ds-phone" :title="t('Visual de teléfono')" code='<PhoneVisual :src="asset(`assets/home/phone-apps.png`)" width="525" height="1087" tone="aurora" />'>
+    <Specimen id="ds-phone" neutral :title="t('Visual de teléfono')" code='<PhoneVisual :src="asset(`assets/home/phone-apps.png`)" width="525" height="1087" tone="aurora" />'>
       <div class="phone-demo"><PhoneVisual :src="asset('assets/home/phone-apps.png')" width="525" height="1087" tone="aurora" /><PhoneVisual :src="asset('assets/home/phone-zion.png')" width="556" height="1149" tone="signal" /></div>
     </Specimen>
 
-    <Specimen id="ds-compare" :title="t('Comparador de capas')" :text="t('Arrastra la línea o usa las flechas del teclado.')" code='<LayerCompare variant="cripto" :base="{ src, alt }" :visible="{ src, alt }">chips…</LayerCompare>'>
+    <Specimen id="ds-compare" :fixed="['dark']" :title="t('Comparador de capas')" :text="t('Arrastra la línea o usa las flechas del teclado.')" code='<LayerCompare variant="cripto" :base="{ src, alt }" :visible="{ src, alt }">chips…</LayerCompare>'>
       <div class="cmp-cripto"><LayerCompare variant="cripto" :aria-label="t('Comparador: lo que ve otra persona y tu capa oculta')" :handle-label="t('Deslizar para comparar las dos capas')" :base="{ src: asset('assets/cripto/phone-oculta.png'), width: 600, height: 596, alt: '' }" :visible="{ src: asset('assets/cripto/phone-visible.png'), width: 600, height: 596, alt: '' }" /></div>
       <div class="cmp-graphene surface-graphene"><LayerCompare variant="graphene" :aria-label="t('Comparador: capa visible y capa oculta del teléfono')" :handle-label="t('Deslizar para ver la capa oculta')" :base="{ src: asset('assets/grapheneos/phone-oculta.png'), alt: '' }" :visible="{ src: asset('assets/grapheneos/phone-visible.png'), alt: '' }" /></div>
     </Specimen>
 
-    <Specimen id="ds-step" dark-only :title="t('Pasos')" code='<StepCard :number="1" icon="qrcode" tone="aurora" title="…" text="…" />  <StepCard variant="compact" … />'>
+    <Specimen id="ds-step" :fixed="['dark']" :note="t('card es oscura (Card dark); compact se adapta al tema.')" :title="t('Pasos')" code='<StepCard :number="1" icon="qrcode" tone="aurora" title="…" text="…" />  <StepCard variant="compact" … />'>
       <div class="grid3">
         <StepCard :number="1" icon="qrcode" tone="aurora" :title="t('Instalas por QR')" :text="t('Activa tu entorno seguro en minutos.')" />
         <StepCard :number="3" icon="refresh" tone="signal" :title="t('Operas como siempre')" :text="t('Mismas apps, mismo flujo, en tiempo real.')" />
@@ -350,11 +449,11 @@ const nav = [
       <ol class="col next-demo"><StepCard variant="compact" :number="1" :title="t('Abre el correo de Zi0n')" :text="t('Si no lo ves en unos minutos, revisa la carpeta de spam.')" /><StepCard variant="compact" :number="2" :title="t('Escanea el QR')" :text="t('Hazlo desde el celular que vas a proteger.')" /></ol>
     </Specimen>
 
-    <Specimen id="ds-toast" :title="t('Aviso (toast)')" code="const toast = useToast(); toast.show('Copiado')">
-      <Button variant="ghost" size="md" @click="toast.show(t('Esto es un aviso de ejemplo'))">{{ t('Mostrar aviso') }}</Button>
+    <Specimen id="ds-toast" :fixed="['dark']" :title="t('Aviso (toast)')" code="const toast = useToast(); toast.show('Copiado')">
+      <div class="col"><Toast :demo="t('Esto es un aviso de ejemplo')" /><Button variant="ghost" size="md" @click="toast.show(t('Esto es un aviso de ejemplo'))">{{ t('Mostrar aviso') }}</Button></div>
     </Specimen>
 
-    <Specimen id="ds-field" dark-only :title="t('Campos del checkout')" surface="checkout" code='<TextField id="email" v-model="email" label="Correo" icon="mail" state="good" />'>
+    <Specimen id="ds-field" :title="t('Campos del checkout')" surface="checkout" code='<TextField id="email" v-model="email" label="Correo" icon="mail" state="good" />'>
       <div class="col form-demo">
         <TextField id="dsMail" v-model="mail" :label="t('¿A qué correo te enviamos el QR?') + ' · ' + t('válido')" icon="mail" state="good" placeholder="hola@correo.com"><template #help><p class="fhelp">{{ t('Revisa que esté bien escrito: ahí llega tu código de instalación.') }}</p></template></TextField>
         <TextField id="dsMailBad" v-model="mailBad" :label="t('Correo') + ' · ' + t('con error')" icon="mail" state="bad"><template #help><p class="fhelp bad">{{ t('Ese correo no parece válido. Revisa que tenga @ y un dominio.') }}</p></template></TextField>
@@ -365,7 +464,7 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-radio" dark-only :title="t('Opciones (radio card)')" surface="checkout" code='<RadioCard v-model="tipo" variant="option" name="tipo" value="prueba" icon="gift" … />'>
+    <Specimen id="ds-radio" :title="t('Opciones (radio card)')" surface="checkout" code='<RadioCard v-model="tipo" variant="option" name="tipo" value="prueba" icon="gift" … />'>
       <div class="col form-demo">
         <RadioCard v-model="tipo" variant="option" name="dsTipo" value="prueba" icon="gift" tone="signal" :title="t('15 días de prueba')" :text="t('Quiero probar Zi0n sin compromiso.')" :tag="{ label: t('Gratis'), tone: 'signal' }" />
         <RadioCard v-model="tipo" variant="option" name="dsTipo" value="restauracion" icon="restore" tone="alert" :title="t('Restauración')" :text="t('Mi dispositivo se borró y necesito restaurarlo.')" />
@@ -380,7 +479,7 @@ const nav = [
       </div>
     </Specimen>
 
-    <Specimen id="ds-method" dark-only :title="t('Método de pago')" surface="checkout" code='<PaymentMethod v-model="metodo" value="card" cards :logos="[…]" />'>
+    <Specimen id="ds-method" :title="t('Método de pago')" surface="checkout" code='<PaymentMethod v-model="metodo" value="card" cards :logos="[…]" />'>
       <div class="col form-demo">
         <PaymentMethod v-model="metodo" name="dsMetodo" value="crypto" :title="t('Stablecoins')" :text="t('USDT o USDC · procesado por Cryptomus')" :logos="[{ src: asset('assets/compra/usdt.png'), width: 24, height: 24, alt: 'USDT' }, { src: asset('assets/compra/usdc.png'), width: 24, height: 24, alt: 'USDC' }]" />
         <PaymentMethod v-model="metodo" name="dsMetodo" value="card" cards :title="t('Tarjeta de crédito')" :text="t('Visa, Mastercard o Amex · procesado por Stripe')" :logos="[{ src: asset('assets/compra/visa.png'), width: 46, height: 15, alt: 'Visa' }, { src: asset('assets/compra/mastercard.png'), width: 26, height: 16, alt: 'Mastercard' }, { src: asset('assets/compra/amex.png'), width: 22, height: 22, alt: 'American Express' }]" />
@@ -391,7 +490,7 @@ const nav = [
       <div class="summary-demo"><OrderSummary pay :lines="summaryLines" total="$269 USD"><template #footer><p class="proc-demo"><span class="ico"><Icon name="lock" /></span>{{ t('Pago procesado por Stripe') }}</p></template></OrderSummary></div>
     </Specimen>
 
-    <Specimen id="ds-bar" :title="t('Barra fija inferior')" surface="checkout" code='<StickyBar :show-back="true" hint="…" total="$269 USD" next-label="Continuar" next-icon />'>
+    <Specimen id="ds-bar" :fixed="['dark']" :title="t('Barra fija inferior')" surface="checkout" code='<StickyBar :show-back="true" hint="…" total="$269 USD" next-label="Continuar" next-icon />'>
       <div class="bar-demo"><StickyBar :hint="t('Elige una tienda de apps.')" total="$269 USD" :next-label="t('Continuar')" :next-disabled="true" next-icon /></div>
     </Specimen>
   </main>
@@ -430,6 +529,16 @@ small{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color
 .tbl th{text-align:left;font:var(--zn-weight-medium) 11px/14px var(--font-mono);letter-spacing:.6px;text-transform:uppercase;color:var(--color-muted);padding:var(--zn-space-8)}
 .tbl td{padding:var(--zn-space-8);border-top:1px solid var(--color-line);vertical-align:middle}
 .tbl.type td:nth-child(2){min-width:320px}
+.tbl.a11y td{white-space:nowrap}
+.tbl.a11y td:first-child{white-space:normal;min-width:180px}
+.pair{display:block;border-radius:8px;outline:1px solid var(--color-line)}
+.verdict{display:inline-block;padding:2px 10px;border-radius:var(--radius-pill);font:var(--zn-weight-semibold) 12px/16px var(--font-sans)}
+.verdict.ok{background:rgba(var(--rgb-signal),.16);color:var(--color-signal)}
+.verdict.ko{background:rgba(var(--rgb-alert),.16);color:var(--color-alert)}
+.verdict.na{background:rgba(var(--rgb-ice),.12);color:var(--color-ice)}
+.kept{display:block;margin-top:4px;white-space:normal;max-width:240px}
+.tbl-wrap:focus-visible,.previews:focus-visible{outline-offset:-2px}
+.callout-demo{width:100%}
 .dot-sw{display:inline-block;width:28px;height:28px;border-radius:var(--zn-radius-8);border:1px solid var(--color-line)}
 .spaces{display:flex;flex-direction:column;gap:var(--zn-space-6)}
 .sp-row{display:grid;grid-template-columns:150px 1fr 50px;align-items:center;gap:var(--zn-space-12)}
@@ -451,8 +560,8 @@ small{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color
 .ic-i .ico{width:24px;height:24px;color:var(--color-mist)}
 .col{display:flex;flex-direction:column;gap:var(--zn-space-16);width:100%;min-width:0}
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--zn-space-12)}
-.ds-label{font:var(--zn-weight-medium) 11px/14px var(--font-mono);letter-spacing:.8px;text-transform:uppercase;color:var(--color-muted)}
-.ds-focus{outline:2px solid var(--color-signal);outline-offset:3px}
+.ds-label{font:var(--zn-weight-medium) 11px/14px var(--font-mono);letter-spacing:.8px;text-transform:uppercase;color:var(--ui-muted)}
+.ds-focus{outline:2px solid var(--ui-focus);outline-offset:3px}
 .chips-demo .chip{position:relative;left:auto;top:auto}
 .nav-demo .nav{position:relative;min-width:1180px}
 .foot-demo .footer,.foot-demo .foot{min-width:1100px}
@@ -474,11 +583,11 @@ small{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color
 .cmp-graphene{zoom:.55}
 .next-demo,.form-demo{max-width:560px}
 .row2-demo,.plans-demo{display:grid;grid-template-columns:1fr 1fr;gap:var(--zn-space-12)}
-.fhelp{font:var(--zn-weight-regular) 13px/18px var(--font-sans);color:var(--color-muted)}
-.fhelp.bad{color:var(--color-alert)}
+.fhelp{font:var(--zn-weight-regular) 13px/18px var(--font-sans);color:var(--ui-muted)}
+.fhelp.bad{color:var(--ui-accent-alert)}
 .summary-demo{width:min(100%,380px)}
-.proc-demo{display:flex;align-items:center;gap:var(--zn-space-8);font:var(--zn-weight-medium) 12px/16px var(--font-mono);letter-spacing:.4px;text-transform:uppercase;color:var(--color-muted)}
-.proc-demo .ico{width:16px;height:16px;color:var(--color-signal)}
+.proc-demo{display:flex;align-items:center;gap:var(--zn-space-8);font:var(--zn-weight-medium) 12px/16px var(--font-mono);letter-spacing:.4px;text-transform:uppercase;color:var(--ui-muted)}
+.proc-demo .ico{width:16px;height:16px;color:var(--ui-accent-signal)}
 .bar-demo{width:100%;--pad:20px}
 .bar-demo .bar{position:relative;animation:none}
 @media (max-width:1023px){

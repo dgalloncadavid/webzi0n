@@ -25,7 +25,7 @@ Hallazgos del sitio original que se **conservaron tal cual** (la regla era no co
 
 ## Código y recursos sin uso en el original (no se portaron)
 
-- Imágenes `grapheneos/assets/logo-color.svg` y `compra/assets/walletconnect.png`: se copiaron a `public/assets/` pero nada las usa.
+- Imagen `compra/assets/walletconnect.png`: se copió a `public/assets/` pero nada la usa. (`logo-color.svg` sí se usa ahora: es el logo del pie en tema claro.)
 - CSS muerto: `.btn-wc`, `.wc`, `.hint` (checkout); `.phone05`, `.lockic`, `.ptitle`, `.dot05`, `.key`, `#bPlug` (GrapheneOS); `.trial`, `.checks`, `.card`, `.grid3`, `.grid4` en la hoja del inicio; variables `--ink2`, `--surf`, `--surf2`.
 
 ## Valores casi iguales que se mantienen separados
@@ -49,6 +49,44 @@ Están documentados en `src/design-system/tokens.json`:
 
 - **Sugerencia de correo ("¿Quisiste decir…?")**: el original arma ese texto con `innerHTML` e inserta lo que escribió la persona sin escapar. En Vue el texto se escapa. Para cualquier correo real el resultado es idéntico; solo deja de interpretar HTML escrito en el campo.
 
-## Agregado al sistema de diseño (sin efecto en el sitio)
+## Agregado al sistema de diseño
 
-- `Badge`: la regla `.light .badge { color: navy }` generaliza la que el original tenía solo para los planes (`.light .plan .badge`). En el sitio solo hay badges sobre fondo claro dentro de los planes, así que nada cambia; sirve para mostrarlos en el catálogo `/ds`.
+- `Badge`: su texto usa `--ui-text`, que vale navy en el tema claro. Generaliza la regla que el original tenía solo para los planes (`.light .plan .badge`); en el sitio nada cambia.
+
+## Accesibilidad: lo que cambió en el sitio público
+
+Todo lo demás del sitio público queda igual (el QA lo confirma). Estos son los únicos cambios visibles, todos para llegar a WCAG 2.2 AA:
+
+1. **Eyebrow sobre las tarjetas claras del inicio** (perfiles y planes): `#6E77A8` (4.31:1 sobre blanco) pasa a `#616BA0` (5.10:1). La diferencia queda bajo el umbral del QA.
+2. **"USD" en las tarjetas de plan claras del inicio:** `muted #8E97BF` (2.87:1 sobre blanco) pasa a `#616BA0` (5.10:1). El tono mínimo que llega a 4.5:1 (`#6874A9`) cambia prácticamente los mismos píxeles, así que no hay un ajuste más chico.
+3. **Carruseles de perfiles (inicio) y escenarios (Cripto) en celulares:** bajo 640 px son una región con nombre y `tabindex="0"`, para poder desplazarlos con el teclado. Solo se ve un contorno al enfocarlos.
+4. **Anillo de foco en las secciones claras:** pasa de signal (1.35:1 sobre claro) a aurora AA. Solo se ve al navegar con teclado.
+5. **Eyebrow "Para usuarios de GrapheneOS" de la tarjeta de ruta (inicio):** aurora `#7B8CFF` sobre su degradado da 3.78:1 medido con los píxeles reales (axe no lo detecta); pasa a `#97A4FF` (4.54:1 en el peor punto). El tono mínimo, `#8D9CFF`, queda justo en el límite (4.47:1 a 4.54:1).
+6. **Campos con error o válidos del checkout y del pago:** al llegar con Tab el borde pasa al color de foco (antes no cambiaba nada, o solo aparecía un aro de 1.49:1). Con clic se ven igual que antes.
+7. **Número "01" de la tarjeta aurora (GrapheneOS, capa oculta):** aurora sobre su brillo daba 3.16:1; pasa a `#A6B2FF` (4.68:1).
+8. **Textos atenuados de "GrapheneOS solo" en la comparativa:** `rgba(ice,.6)` pasa a `.62`; en celulares daba 4.49:1 sobre el brillo. La diferencia no se distingue.
+9. **Flecha "→" del flujo de abogados (inicio):** muted (2.87:1 sobre blanco) pasa al texto atenuado AA.
+
+## Accesibilidad: textos públicos bajo el mínimo que se conservan
+
+Medidos con los píxeles reales del fondo (axe no puede decidirlos). Corregirlos exige cambiar el diseño, así que se dejan y figuran en `qa/a11y/exceptions.json`; `npm run a11y` los muestra aparte:
+
+- **GrapheneOS, 5 pulsaciones de volumen:** números mist sobre círculos alert, 2.77:1 (texto grande: mínimo 3:1; en celulares el texto es de 18 px y el mínimo es 4.5:1). Se resuelve con números en tinta o un rojo más oscuro.
+- **GrapheneOS, comparativa "Con Zi0n encima":** texto blanco sobre el panel en degradado signal y aurora, de 3.57:1 a 4.47:1 según la fila. El blanco ya es el máximo; se resuelve oscureciendo el panel.
+
+**Efecto en el QA visual:** los puntos 2, 5 y 9 son los únicos que el QA registra. Llevan el inicio de 0.001% a 0.004% a entre 0.005% y 0.011% según el ancho (unos 450 px en una página de 4 millones). Todo lo demás (GrapheneOS, Cripto, checkout, pagos y los 136 estados del flujo de compra) sigue en 0% a 0.004%. Para volver exactamente al original, se revierten esos tres colores:
+- `src/design-system/components/PlanCard.vue`: `.price .cur` con `color:var(--color-muted)`.
+- `src/design-system/components/RouteCard.vue`: quitar `.route.c-aur{--acc:...}`.
+- `src/sections/home/AudienceSection.vue`: `.mflow .ar` con `color:var(--color-muted)`.
+
+## Accesibilidad: valores oscuros bajo el mínimo que se conservan
+
+Subirlos a 3:1 (o 4.5:1) cambiaría el checkout y las landings mucho más allá del 0.004% permitido, así que se dejan como están y se marcan en la tabla de `/ds`:
+
+- Borde de los campos del checkout: `rgba(ice,.28)`, 1.99:1 contra el campo.
+- Aro de los radios (tiendas, planes, método de pago): 2.04:1.
+- Divisores (FAQ, pie): `rgba(ice,.16)`, 1.41:1. En el FAQ el estado lo lleva el ícono +/−, que sí pasa (10.8:1).
+- Aro del ícono del FAQ: 2.11:1 (el ícono adentro pasa).
+- Placeholder de los campos: `rgba(ice,.45)`, 3.29:1. axe no evalúa placeholders.
+
+En el tema claro todos estos pares pasan (3.03:1 a 5.10:1).

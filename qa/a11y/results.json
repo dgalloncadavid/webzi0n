@@ -1,0 +1,1794 @@
+{
+ "summary": {
+  "fecha": "2026-10-26T14:46:09.217Z",
+  "axe": {
+   "corridas": 80,
+   "conViolaciones": 0,
+   "violaciones": 0,
+   "contrasteIncompleto": 5173
+  },
+  "muestreo": {
+   "textos": 2004,
+   "fallas": 0
+  },
+  "foco": {
+   "recorridos": 24,
+   "paradas": 701,
+   "fallas": 0
+  },
+  "textoDs": {
+   "revisados": 1168,
+   "fallas": 0
+  },
+  "teclado": {
+   "pruebas": 6,
+   "fallas": 0
+  },
+  "ordenTab": {
+   "recorridos": 12,
+   "fallas": 0
+  }
+ },
+ "axe": [
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 62
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 63
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 55
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 64
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 85
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 85
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 44
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 45
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 48
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 0
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 36
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 38
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 34
+  },
+  {
+   "state": "compra · listo",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 27
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 32
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 40
+  },
+  {
+   "state": "pago con stablecoins · verificando",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 40
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 41
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 42
+  },
+  {
+   "state": "/ds",
+   "width": 1280,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 315
+  },
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 62
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 64
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 54
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 63
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 85
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 85
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 44
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 45
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 48
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 0
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 36
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 38
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 34
+  },
+  {
+   "state": "compra · listo",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 27
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 32
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 40
+  },
+  {
+   "state": "pago con stablecoins · verificando",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 40
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 41
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 42
+  },
+  {
+   "state": "/ds",
+   "width": 1280,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 314
+  },
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 67
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 68
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 36
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 45
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 89
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 83
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 30
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 34
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 1
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 21
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 22
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 18
+  },
+  {
+   "state": "compra · listo",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 23
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 19
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "pago con stablecoins · verificando",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 32
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 33
+  },
+  {
+   "state": "/ds",
+   "width": 390,
+   "lang": "es",
+   "violations": [],
+   "incompleteContrast": 679
+  },
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 67
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 68
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 36
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 45
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 86
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 86
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 30
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 34
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 1
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 21
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 22
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 18
+  },
+  {
+   "state": "compra · listo",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 23
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 19
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "pago con stablecoins · verificando",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 31
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 32
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 33
+  },
+  {
+   "state": "/ds",
+   "width": 390,
+   "lang": "en",
+   "violations": [],
+   "incompleteContrast": 676
+  }
+ ],
+ "sampled": [
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 1280,
+   "checked": 61,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 1280,
+   "checked": 62,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 1280,
+   "checked": 49,
+   "fails": [],
+   "known": [
+    {
+     "sel": "#presses > b:nth-child(1)",
+     "text": "1",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(2)",
+     "text": "2",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "#presses > b:nth-child(3)",
+     "text": "3",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(4)",
+     "text": "4",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(5)",
+     "text": "5",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": ".row[data-v-f055c7a9=\"\"]:nth-child(7) > .semi.rv2",
+     "text": "Se limpia cada 15 minutos",
+     "within": [
+      ".semi.rv2"
+     ],
+     "ratio": 3.57,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#FFFFFF",
+     "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    },
+    {
+     "sel": ".row[data-v-f055c7a9=\"\"]:nth-child(8) > .semi.rv2",
+     "text": "Suena, vibra y pide tu PIN",
+     "within": [
+      ".semi.rv2"
+     ],
+     "ratio": 4.47,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#FFFFFF",
+     "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    }
+   ]
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 1280,
+   "checked": 57,
+   "fails": [],
+   "known": [
+    {
+     "sel": "#presses > b:nth-child(1)",
+     "text": "1",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(2)",
+     "text": "2",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "#presses > b:nth-child(3)",
+     "text": "3",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(5)",
+     "text": "5",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 3,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": ".row[data-v-f055c7a9=\"\"]:nth-child(7) > .semi.rv2",
+     "text": "Se limpia cada 15 minutos",
+     "within": [
+      ".semi.rv2"
+     ],
+     "ratio": 3.57,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#FFFFFF",
+     "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    },
+    {
+     "sel": ".row[data-v-f055c7a9=\"\"]:nth-child(8) > .semi.rv2",
+     "text": "Suena, vibra y pide tu PIN",
+     "within": [
+      ".semi.rv2"
+     ],
+     "ratio": 4.47,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#FFFFFF",
+     "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    },
+    {
+     "sel": ".row[data-v-f055c7a9=\"\"]:nth-child(11) > .semi.rv2",
+     "text": "5 pulsaciones de volumen, sin código",
+     "within": [
+      ".semi.rv2"
+     ],
+     "ratio": 4.45,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#FFFFFF",
+     "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    }
+   ]
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 1280,
+   "checked": 83,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 1280,
+   "checked": 83,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 1280,
+   "checked": 44,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 1280,
+   "checked": 45,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 1280,
+   "checked": 48,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 1280,
+   "checked": 0,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 1280,
+   "checked": 35,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 1280,
+   "checked": 38,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 1280,
+   "checked": 33,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · listo",
+   "width": 1280,
+   "checked": 26,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 1280,
+   "checked": 32,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 1280,
+   "checked": 40,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 1280,
+   "checked": 36,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 1280,
+   "checked": 37,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "/ds",
+   "width": 1280,
+   "checked": 87,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 390,
+   "checked": 66,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "inicio · FAQ cerrado",
+   "width": 390,
+   "checked": 67,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 390,
+   "checked": 31,
+   "fails": [],
+   "known": [
+    {
+     "sel": "#presses > b:nth-child(1)",
+     "text": "1",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(2)",
+     "text": "2",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "#presses > b:nth-child(3)",
+     "text": "3",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(4)",
+     "text": "4",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(5)",
+     "text": "5",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    }
+   ]
+  },
+  {
+   "state": "grapheneos · FAQ cerrado",
+   "width": 390,
+   "checked": 40,
+   "fails": [],
+   "known": [
+    {
+     "sel": ".hit",
+     "text": "1",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(2)",
+     "text": "2",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "#presses > b:nth-child(3)",
+     "text": "3",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(4)",
+     "text": "4",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+     "sel": "b:nth-child(5)",
+     "text": "5",
+     "within": [
+      "#presses"
+     ],
+     "ratio": 2.77,
+     "min": 4.5,
+     "pass": false,
+     "fg": "#F3F6FB",
+     "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    }
+   ]
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 390,
+   "checked": 88,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "cripto · FAQ cerrado",
+   "width": 390,
+   "checked": 83,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 390,
+   "checked": 30,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 1 con aviso",
+   "width": 390,
+   "checked": 31,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 390,
+   "checked": 34,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 390,
+   "checked": 1,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 390,
+   "checked": 20,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 3 con sugerencia de correo",
+   "width": 390,
+   "checked": 22,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 390,
+   "checked": 17,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · listo",
+   "width": 390,
+   "checked": 22,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "compra · paso 4 (renovación)",
+   "width": 390,
+   "checked": 19,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 390,
+   "checked": 31,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con tarjeta",
+   "width": 390,
+   "checked": 27,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 390,
+   "checked": 28,
+   "fails": [],
+   "known": []
+  },
+  {
+   "state": "/ds",
+   "width": 390,
+   "checked": 451,
+   "fails": [],
+   "known": []
+  }
+ ],
+ "focus": [
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 1280,
+   "stops": 35,
+   "fails": []
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 1280,
+   "stops": 28,
+   "fails": []
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 1280,
+   "stops": 25,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 1280,
+   "stops": 14,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 1280,
+   "stops": 18,
+   "fails": []
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 1280,
+   "stops": 2,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 1280,
+   "stops": 14,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 1280,
+   "stops": 13,
+   "fails": []
+  },
+  {
+   "state": "compra · listo",
+   "width": 1280,
+   "stops": 12,
+   "fails": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 1280,
+   "stops": 15,
+   "fails": []
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 1280,
+   "stops": 16,
+   "fails": []
+  },
+  {
+   "state": "/ds",
+   "width": 1280,
+   "stops": 190,
+   "fails": []
+  },
+  {
+   "state": "inicio · FAQ abierto",
+   "width": 390,
+   "stops": 29,
+   "fails": []
+  },
+  {
+   "state": "grapheneos · FAQ abierto",
+   "width": 390,
+   "stops": 22,
+   "fails": []
+  },
+  {
+   "state": "cripto · FAQ abierto",
+   "width": 390,
+   "stops": 21,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 390,
+   "stops": 15,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 390,
+   "stops": 19,
+   "fails": []
+  },
+  {
+   "state": "compra · modal de tiendas",
+   "width": 390,
+   "stops": 2,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 390,
+   "stops": 15,
+   "fails": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 390,
+   "stops": 14,
+   "fails": []
+  },
+  {
+   "state": "compra · listo",
+   "width": 390,
+   "stops": 12,
+   "fails": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 390,
+   "stops": 16,
+   "fails": []
+  },
+  {
+   "state": "pago con tarjeta · errores",
+   "width": 390,
+   "stops": 17,
+   "fails": []
+  },
+  {
+   "state": "/ds",
+   "width": 390,
+   "stops": 137,
+   "fails": []
+  }
+ ],
+ "dsText": [
+  {
+   "width": 1280,
+   "checked": 736,
+   "fails": [],
+   "disabled": [
+    {
+     "sel": "#zc-t16",
+     "spec": "ds-button",
+     "theme": "oscuro",
+     "state": "",
+     "text": "Desactivado",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#zc-t32",
+     "spec": "ds-button",
+     "theme": "claro",
+     "state": "",
+     "text": "Desactivado",
+     "ratio": 3.36,
+     "fg": "#727A9B",
+     "bg": "#E1E5EE",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "oscuro",
+     "state": "",
+     "text": "Continuar",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "claro",
+     "state": "",
+     "text": "Continuar",
+     "ratio": 3.34,
+     "fg": "#8B91A1",
+     "bg": "#363E58",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#zc-t16",
+     "spec": "ds-button",
+     "theme": "oscuro",
+     "state": "hover",
+     "text": "Desactivado",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#zc-t32",
+     "spec": "ds-button",
+     "theme": "claro",
+     "state": "hover",
+     "text": "Desactivado",
+     "ratio": 3.36,
+     "fg": "#727A9B",
+     "bg": "#E1E5EE",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "oscuro",
+     "state": "hover",
+     "text": "Continuar",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "claro",
+     "state": "hover",
+     "text": "Continuar",
+     "ratio": 3.34,
+     "fg": "#8B91A1",
+     "bg": "#363E58",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    }
+   ]
+  },
+  {
+   "width": 390,
+   "checked": 432,
+   "fails": [],
+   "disabled": [
+    {
+     "sel": "#zc-t16",
+     "spec": "ds-button",
+     "theme": "oscuro",
+     "state": "",
+     "text": "Desactivado",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#zc-t32",
+     "spec": "ds-button",
+     "theme": "claro",
+     "state": "",
+     "text": "Desactivado",
+     "ratio": 3.36,
+     "fg": "#727A9B",
+     "bg": "#E1E5EE",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "oscuro",
+     "state": "",
+     "text": "Continuar",
+     "ratio": 3.87,
+     "fg": "#808698",
+     "bg": "#222A46",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    },
+    {
+     "sel": "#bNextT",
+     "spec": "ds-bar",
+     "theme": "claro",
+     "state": "",
+     "text": "Continuar",
+     "ratio": 3.34,
+     "fg": "#8B91A1",
+     "bg": "#363E58",
+     "gradient": false,
+     "min": 3,
+     "disabled": true,
+     "pass": true
+    }
+   ]
+  }
+ ],
+ "keyboard": [
+  {
+   "where": "/ds · 1280px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false"
+    }
+   ]
+  },
+  {
+   "where": "inicio · 1280px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false false"
+    }
+   ]
+  },
+  {
+   "where": "grapheneos · 1280px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false false"
+    }
+   ]
+  },
+  {
+   "where": "/ds · 390px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false"
+    }
+   ]
+  },
+  {
+   "where": "inicio · 390px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false false"
+    }
+   ]
+  },
+  {
+   "where": "grapheneos · 390px",
+   "ok": true,
+   "steps": [
+    {
+     "key": "Enter abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Espacio cierra la 2",
+     "ok": true,
+     "expanded": "false false false false"
+    },
+    {
+     "key": "Espacio abre la 2",
+     "ok": true,
+     "expanded": "false true false false"
+    },
+    {
+     "key": "Enter en la 1 abre la 1 y cierra la 2",
+     "ok": true,
+     "expanded": "true false false false"
+    },
+    {
+     "key": "Enter cierra la 1",
+     "ok": true,
+     "expanded": "false false false false"
+    }
+   ]
+  }
+ ],
+ "tabOrder": [
+  {
+   "state": "compra · paso 1",
+   "width": 1280,
+   "stops": 14,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 1280,
+   "stops": 18,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 1280,
+   "stops": 14,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 1280,
+   "stops": 13,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 1280,
+   "stops": 15,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "/ds",
+   "width": 1280,
+   "stops": 190,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 1",
+   "width": 390,
+   "stops": 15,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 2",
+   "width": 390,
+   "stops": 19,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 3",
+   "width": 390,
+   "stops": 15,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "compra · paso 4",
+   "width": 390,
+   "stops": 14,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "pago con stablecoins",
+   "width": 390,
+   "stops": 16,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  },
+  {
+   "state": "/ds",
+   "width": 390,
+   "stops": 137,
+   "ok": true,
+   "positive": [],
+   "backwards": [],
+   "hidden": [],
+   "missed": []
+  }
+ ]
+}

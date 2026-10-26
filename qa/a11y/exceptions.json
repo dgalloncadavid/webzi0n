@@ -1,0 +1,17 @@
+{
+  "$description": "Contrastes del sitio público que no llegan al mínimo y se conservan porque corregirlos cambia el diseño (regla: las páginas públicas no cambian). npm run a11y los reporta aparte y no los cuenta como falla. page: prefijo del estado; selector: parte del selector del texto.",
+  "items": [
+    {
+      "page": "grapheneos",
+      "selector": "#presses",
+      "ratio": "2.77:1",
+      "reason": "Números claros (mist) sobre los círculos alert de las 5 pulsaciones de volumen. Para llegar a 3:1 hay que cambiar el texto a tinta o el rojo del círculo."
+    },
+    {
+      "page": "grapheneos",
+      "selector": ".semi.rv2",
+      "ratio": "3.57:1 a 4.47:1",
+      "reason": "Texto blanco sobre el panel en degradado signal y aurora de la comparativa (\"Con Zi0n encima\"). El blanco ya es el máximo: hay que oscurecer el panel."
+    }
+  ]
+}

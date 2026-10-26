@@ -16,7 +16,7 @@ a{color:inherit;text-decoration:none}
 p,h1,h2,h3,dl,dd,ol,ul{margin:0}
 ol,ul{padding:0;list-style:none}
 [hidden]{display:none!important}
-:focus-visible{outline:2px solid var(--color-signal);outline-offset:3px}
+:focus-visible{outline:2px solid var(--ui-focus);outline-offset:3px}
 
 /* El router marca la superficie de la página en <html data-surface>.
    Las landings tienen scroll suave y ocultan el desborde horizontal; el checkout no. */
@@ -32,10 +32,11 @@ html.menu-open body{overflow:hidden}
 .surface-checkout .ico{flex:none}
 
 /* ---------- tonos: --rgb alimenta rgba(var(--rgb),a) en los componentes ---------- */
-.c-sig,.c-sig2{--rgb:var(--rgb-signal)}
-.c-aur,.c-aur2{--rgb:var(--rgb-aurora)}
-.c-alt,.c-alert{--rgb:var(--rgb-alert)}
-.c-ice,.c-ice2{--rgb:var(--rgb-ice)}
+/* --tone: el mismo tono apto para texto e íconos en el tema activo (en claro, la versión AA) */
+.c-sig,.c-sig2{--rgb:var(--rgb-signal);--tone:var(--ui-accent-signal)}
+.c-aur,.c-aur2{--rgb:var(--rgb-aurora);--tone:var(--ui-accent-aurora)}
+.c-alt,.c-alert{--rgb:var(--rgb-alert);--tone:var(--ui-accent-alert)}
+.c-ice,.c-ice2{--rgb:var(--rgb-ice);--tone:var(--ui-text-2)}
 
 /* ---------- roles tipográficos (valores en .surface-*) ---------- */
 .h-display{font:var(--type-display-weight) var(--type-display-size)/var(--type-display-line) var(--type-display-family);letter-spacing:var(--type-display-track);color:var(--type-display-color)}
@@ -54,7 +55,7 @@ html.menu-open body{overflow:hidden}
 .kicker{font:var(--type-kicker-weight) var(--type-kicker-size)/var(--type-kicker-line) var(--type-kicker-family);letter-spacing:var(--type-kicker-track);text-transform:uppercase;color:var(--type-kicker-color)}
 .lead{font:var(--type-lead-weight) var(--type-lead-size)/var(--type-lead-line) var(--type-lead-family);letter-spacing:var(--type-lead-track);color:var(--type-lead-color)}
 .lead.sm{font-size:var(--type-lead-sm-size);line-height:var(--type-lead-sm-line)}
-.muted{color:var(--color-muted)}
+.muted{color:var(--ui-muted)}
 /* el original equilibra títulos por elemento en las landings y por clase en el checkout */
 .surface-landing :is(h1,h2,h3,.h4){text-wrap:balance}
 .surface-checkout .h2{text-wrap:balance}

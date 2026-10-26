@@ -6,8 +6,11 @@ import Card from '@/design-system/components/Card.vue'
 import Badge from '@/design-system/components/Badge.vue'
 import { useT } from '@/design-system/composables/useLang'
 import { useInView } from '@/design-system/composables/useInView'
+import { useMediaQuery } from '@/design-system/composables/useMedia'
 
 const { t } = useT()
+/* en celulares la grilla es un carrusel con scroll: se vuelve región enfocable para moverla con el teclado */
+const carousel = useMediaQuery('(max-width:640px)')
 const c1 = ref(null), c2 = ref(null), c3 = ref(null), c4 = ref(null)
 const el = (r) => () => r.value && r.value.$el
 const run = [c1, c2, c3, c4].map((r) => useInView(el(r), { threshold: 0.3 }))
@@ -37,7 +40,7 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
   <div class="glowbg" style="--rgb:var(--rgb-alert);left:-10%;top:10%"></div>
   <div class="wrap">
     <SectionHeader v-reveal class="rv" :eyebrow="t('El riesgo real')" :title="t('El punto débil ya no es tu wallet. Eres tú.')" :lead="t('A medida que los protocolos y las wallets se vuelven más seguros, el ataque se mueve hacia la persona. Estas son las situaciones para las que Zi0n está diseñado.')" />
-    <div class="grid4">
+    <div class="grid4" :role="carousel ? 'region' : undefined" :aria-label="carousel ? t('Escenarios de riesgo') : undefined" :tabindex="carousel ? 0 : undefined">
       <Card ref="c1" v-reveal class="scn-card rv" :class="{ run: run[0].value }" style="--d:0s">
         <svg class="ill i-pin" viewBox="0 0 220 120" aria-hidden="true">
           <rect class="ph" x="70" y="8" width="80" height="104" rx="14"/>
@@ -160,6 +163,7 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
 @media (max-width:640px){
   .grid4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);gap:var(--zn-space-12);margin:0 calc(var(--pad) * -1);padding:var(--zn-space-4) var(--pad) var(--zn-space-12);scrollbar-width:none}
   .grid4::-webkit-scrollbar{display:none}
+  .grid4:focus-visible{outline-offset:-2px}
   .grid4>.card{flex:0 0 min(300px,calc(100vw - 72px));scroll-snap-align:start}
   .grid4::after{content:"";flex:0 0 1px}
   .ill{aspect-ratio:220/100}

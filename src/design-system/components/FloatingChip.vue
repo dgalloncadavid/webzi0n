@@ -4,7 +4,8 @@
             float   (Cripto: flota solo y el punto late)
             compact (GrapheneOS: medidas del lienzo escalado de 1280 px)
    tone:    signal | aurora | alert | ice
-   La posición la da quien lo usa (style o clase). */
+   La posición la da quien lo usa (style o clase).
+   Superficie fija: oscura (cristal tinta con texto claro). */
 defineProps({
   variant: { type: String, default: 'glass' },
   tone: { type: String, default: 'signal' }
@@ -12,14 +13,14 @@ defineProps({
 const DOT = { signal: 'sig', aurora: 'aur', alert: 'alt', ice: 'ice' }
 </script>
 
-<template><div class="chip" :class="'chip--' + variant"><i class="dot" :class="DOT[tone]"></i><span><slot /></span></div></template>
+<template><div class="chip" :class="'chip--' + variant" data-theme="dark"><i class="dot" :class="DOT[tone]"></i><span><slot /></span></div></template>
 
 <style scoped>
 .chip{position:absolute;display:flex;align-items:center;white-space:nowrap;border-radius:var(--radius-pill);font-family:var(--font-mono);font-weight:var(--zn-weight-medium);text-transform:uppercase}
 .dot{border-radius:var(--radius-round)}
 
 /* glass · inicio */
-.chip--glass{gap:var(--zn-space-8);padding:var(--zn-space-9) var(--zn-space-14);background:var(--color-chip-bg);border:1px solid var(--color-line);backdrop-filter:blur(var(--zn-blur-10));-webkit-backdrop-filter:blur(var(--zn-blur-10));font-size:12px;line-height:16px;letter-spacing:.96px;box-shadow:var(--shadow-chip)}
+.chip--glass{gap:var(--zn-space-8);padding:var(--zn-space-9) var(--zn-space-14);background:var(--color-chip-bg);border:1px solid var(--color-line);backdrop-filter:blur(var(--zn-blur-10));-webkit-backdrop-filter:blur(var(--zn-blur-10));font-size:12px;line-height:16px;letter-spacing:.96px;color:var(--ui-text);box-shadow:var(--shadow-chip)}
 .chip--glass .dot{width:8px;height:8px;background:rgb(var(--rgb));box-shadow:0 0 10px rgb(var(--rgb))}
 .chip--glass .dot.sig{--rgb:var(--rgb-signal)}.chip--glass .dot.aur{--rgb:var(--rgb-aurora)}.chip--glass .dot.alt{--rgb:var(--rgb-alert)}.chip--glass .dot.ice{--rgb:var(--rgb-ice)}
 .chip--glass>span{display:inline-block}

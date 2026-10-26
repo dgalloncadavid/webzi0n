@@ -101,6 +101,8 @@ onBeforeUnmount(() => window.removeEventListener('resize', update))
 .slide .h3{position:absolute;left:31px;top:221px;width:360px}
 .slide .body{position:absolute;left:31px;top:277px;width:350px}
 .slide .sn{position:absolute;left:357px;top:27px;color:rgb(var(--rgb))}
+/* AA: aurora sobre su propio brillo daba 3.16:1 */
+.slide.c-aur .sn{color:var(--zn-aurora-on-glow)}
 
 /* cabecera y carrusel a sangre */
 .s03 .frame{width:var(--vw)}

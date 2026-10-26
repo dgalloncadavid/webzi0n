@@ -45,7 +45,7 @@ const rows = [
 .hl{position:absolute;left:-1px;top:0;width:1120px;height:1px;background:rgba(var(--rgb-white),.1)}
 .row .lbl{position:absolute;left:47px;top:14px;color:rgba(var(--rgb-ice),.7);white-space:nowrap}
 .xi{position:absolute;left:47px;top:40px;width:22px;height:22px;color:rgba(var(--rgb-ice),.5)}
-.row .lv{position:absolute;left:81px;top:40px;color:rgba(var(--rgb-ice),.6);white-space:nowrap}
+.row .lv{position:absolute;left:81px;top:40px;color:rgba(var(--rgb-ice),.62);white-space:nowrap} /* AA: era .6 (4.49:1 sobre el brillo en celulares) */
 .ck{position:absolute;left:607px;top:36px;width:30px;height:30px;border-radius:50%;background:var(--color-signal);box-shadow:0 0 14px rgba(var(--rgb-signal),.8);display:grid;place-items:center;color:var(--color-ink)}
 .ck .ico{width:18px;height:18px}
 .row .rv2{position:absolute;left:653px;top:40px;width:440px}

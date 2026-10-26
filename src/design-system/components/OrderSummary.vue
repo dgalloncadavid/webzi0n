@@ -2,7 +2,8 @@
 /* Resumen del pedido. En escritorio queda fijo al costado; bajo 980 px sube arriba
    y se pliega con un botón que muestra el total.
    Cada valor parpadea en verde cuando cambia (o al cambiar de idioma).
-   Slots: media (imagen arriba), footer (lista de incluidos o procesador de pago). */
+   Slots: media (imagen arriba), footer (lista de incluidos o procesador de pago).
+   Se adapta al tema: panel translúcido en oscuro, blanco en claro. */
 import { ref, watch, nextTick } from 'vue'
 import Icon from './Icon.vue'
 import { lang, useT } from '../composables/useLang'
@@ -48,23 +49,23 @@ const IDS = { tipo: 'sTipo', tienda: 'sTienda', plan: 'sPlan', mail: 'sMail' }
 </template>
 
 <style scoped>
-.summary{position:sticky;top:96px;border-radius:var(--radius-card);border:1px solid var(--color-line);background:rgba(var(--zn-surface-checkout-rgb),.75);backdrop-filter:blur(var(--zn-blur-12));-webkit-backdrop-filter:blur(var(--zn-blur-12));overflow:hidden}
+.summary{position:sticky;top:96px;border-radius:var(--radius-card);border:1px solid var(--ui-line);background:var(--ui-panel);color:var(--ui-text);backdrop-filter:blur(var(--zn-blur-12));-webkit-backdrop-filter:blur(var(--zn-blur-12));overflow:hidden}
 .sum-toggle{display:none}
 .sum-body{padding:0 var(--zn-space-24) var(--zn-space-24);display:flex;flex-direction:column;gap:var(--zn-space-16)}
 .lines{display:flex;flex-direction:column;gap:var(--zn-space-10)}
 .lines div{display:flex;justify-content:space-between;gap:var(--zn-space-12);font:var(--zn-weight-regular) 14px/20px var(--font-sans)}
-.lines dt{color:var(--color-muted)}
-.lines dd{color:var(--color-mist);text-align:right;font-weight:var(--zn-weight-medium);overflow-wrap:anywhere;transition:color var(--dur-medium)}
+.lines dt{color:var(--ui-muted)}
+.lines dd{color:var(--ui-text);text-align:right;font-weight:var(--zn-weight-medium);overflow-wrap:anywhere;transition:color var(--dur-medium)}
 .lines dd.flash{animation:fl var(--zn-dur-800)}
-@keyframes fl{0%{color:var(--color-signal)}100%{color:var(--color-mist)}}
-.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:var(--zn-space-14);border-top:1px dashed var(--color-line-strong)}
-.total span{font:var(--zn-weight-medium) 13px/18px var(--font-mono);letter-spacing:.6px;text-transform:uppercase;color:var(--color-ice)}
-.total b{font:var(--zn-weight-extrabold) 28px/34px var(--font-mono);letter-spacing:-.5px;color:var(--color-mist)}
+@keyframes fl{0%{color:var(--ui-accent-signal)}100%{color:var(--ui-text)}}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:var(--zn-space-14);border-top:1px dashed var(--ui-border)}
+.total span{font:var(--zn-weight-medium) 13px/18px var(--font-mono);letter-spacing:.6px;text-transform:uppercase;color:var(--ui-text-2)}
+.total b{font:var(--zn-weight-extrabold) 28px/34px var(--font-mono);letter-spacing:-.5px;color:var(--ui-text)}
 @media (max-width:980px){
   .summary{position:relative;top:auto;order:-1;border-radius:var(--zn-radius-18)}
-  .sum-toggle{display:flex;align-items:center;gap:var(--zn-space-10);width:100%;padding:var(--zn-space-14) var(--zn-space-18);font:var(--zn-weight-medium) 14px/20px var(--font-sans);color:var(--color-ice)}
+  .sum-toggle{display:flex;align-items:center;gap:var(--zn-space-10);width:100%;padding:var(--zn-space-14) var(--zn-space-18);font:var(--zn-weight-medium) 14px/20px var(--font-sans);color:var(--ui-text-2)}
   .sum-toggle span:first-child{flex:1}
-  .sum-toggle b{font:var(--zn-weight-extrabold) 16px/22px var(--font-mono);color:var(--color-mist)}
+  .sum-toggle b{font:var(--zn-weight-extrabold) 16px/22px var(--font-mono);color:var(--ui-text)}
   .sum-toggle .ico{width:18px;height:18px;transition:transform var(--dur-medium) var(--ease)}
   .summary.open .sum-toggle .ico{transform:rotate(180deg)}
   .sum-body{display:none;padding-top:var(--zn-space-4)}

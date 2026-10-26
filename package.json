@@ -8,13 +8,15 @@
     "build": "vite build && node scripts/spa-fallback.mjs",
     "preview": "vite preview",
     "tokens": "node scripts/build-tokens.mjs",
-    "qa": "node qa/scripts/run-qa.mjs"
+    "qa": "node qa/scripts/run-qa.mjs",
+    "a11y": "node qa/scripts/a11y.mjs"
   },
   "dependencies": {
     "vue": "^3.5.44",
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@vitejs/plugin-vue": "^6.0.10",
     "pixelmatch": "^8.0.0",
     "playwright": "^1.64.1",

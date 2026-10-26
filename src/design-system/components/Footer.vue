@@ -5,7 +5,9 @@
             graphene (igual que cripto, en el lienzo de 1280 px)
             compact  (checkout: una línea con copyright y enlaces legales)
    columns: [{ title, links: [{ label, to }] }]  (home)
-   links:   [{ label, to }]                       (cripto, graphene, compact) */
+   links:   [{ label, to }]                       (cripto, graphene, compact)
+   Se adapta al tema (enlaces, textos, divisor y logo). graphene tiene fondo tinta propio:
+   superficie fija oscura. */
 import { asset } from '@/design-system/asset'
 import { RouterLink } from 'vue-router'
 import { useT } from '../composables/useLang'
@@ -30,11 +32,12 @@ const bind = (to) => (isRouteLink(to) ? { to } : { href: to })
     <nav><component :is="is(l.to)" v-for="l in links" :key="l.label" v-bind="bind(l.to)">{{ t(l.label) }}</component></nav>
   </div>
 </footer>
-<footer v-else class="footer" :class="['footer--' + variant, { sec: variant === 'graphene' }]">
+<footer v-else class="footer" :class="['footer--' + variant, { sec: variant === 'graphene' }]" :data-theme="variant === 'graphene' ? 'dark' : undefined">
   <div :class="variant === 'graphene' ? 'frame foot-in' : 'wrap'">
     <div class="ftop">
       <div class="brand">
-        <img :src="asset('assets/logo-white.svg')" width="138" height="32" alt="Zi0n">
+        <img class="logo-dk" :src="asset('assets/logo-white.svg')" width="138" height="32" alt="Zi0n">
+        <img class="logo-lt" :src="asset('assets/grapheneos/logo-color.svg')" width="138" height="32" alt="Zi0n" loading="lazy">
         <p class="body">{{ t(tagline) }}</p>
       </div>
       <div v-if="variant === 'home'" class="fcols">
@@ -52,16 +55,19 @@ const bind = (to) => (isRouteLink(to) ? { to } : { href: to })
 .footer .wrap{display:flex;flex-direction:column;gap:var(--zn-space-40);padding-top:var(--zn-space-64);padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 .ftop{display:flex;align-items:center;justify-content:space-between;gap:var(--zn-space-32)}
 .brand{display:flex;flex-direction:column;gap:var(--zn-space-16);max-width:480px}
-.flinks{display:flex;flex-wrap:wrap;gap:var(--zn-space-12) var(--zn-space-32);font:var(--zn-weight-regular) 14px/20px var(--font-sans);color:var(--color-ice)}
-.flinks a:hover{color:var(--color-white)}
-.fbottom{border-top:1px solid var(--color-line);padding-top:var(--zn-space-24)}
-.fbottom p{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color-muted)}
+.flinks{display:flex;flex-wrap:wrap;gap:var(--zn-space-12) var(--zn-space-32);font:var(--zn-weight-regular) 14px/20px var(--font-sans);color:var(--ui-text-2)}
+.flinks a:hover{color:var(--ui-hover-text)}
+.fbottom{border-top:1px solid var(--ui-divider);padding-top:var(--zn-space-24)}
+.fbottom p{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--ui-muted)}
+/* logo blanco en oscuro y a color (palabra navy) en claro */
+.logo-dk{display:var(--ui-logo-white)}
+.logo-lt{display:var(--ui-logo-color)}
 
 /* inicio: columnas */
 .footer--home .ftop{align-items:flex-start}
 .fcols{display:flex;gap:var(--zn-space-64)}
 .fcols .flinks{flex-direction:column;gap:var(--zn-space-12)}
-.fcols .eyebrow{color:var(--color-muted);margin-bottom:var(--zn-space-4)}
+.fcols .eyebrow{color:var(--ui-muted);margin-bottom:var(--zn-space-4)}
 
 /* GrapheneOS: sección del lienzo de 1280 px */
 .footer--graphene{position:relative;background:var(--color-ink);overflow:hidden}
@@ -87,10 +93,10 @@ const bind = (to) => (isRouteLink(to) ? { to } : { href: to })
 }
 
 /* ---------- checkout ---------- */
-.foot{border-top:1px solid var(--color-line)}
-.foot>.foot-in{max-width:var(--layout-max-width-checkout);margin:0 auto;padding:var(--zn-space-24) var(--pad) calc(24px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:var(--zn-space-16);flex-wrap:wrap;font:var(--zn-weight-regular) 12px/18px var(--font-sans);color:var(--color-muted)}
+.foot{border-top:1px solid var(--ui-divider)}
+.foot>.foot-in{max-width:var(--layout-max-width-checkout);margin:0 auto;padding:var(--zn-space-24) var(--pad) calc(24px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:var(--zn-space-16);flex-wrap:wrap;font:var(--zn-weight-regular) 12px/18px var(--font-sans);color:var(--ui-muted)}
 .foot nav{display:flex;gap:var(--zn-space-20);flex-wrap:wrap}
-.foot a:hover{color:var(--color-mist)}
+.foot a:hover{color:var(--ui-text)}
 @media (max-width:640px){
   .foot>.foot-in{flex-direction:column}
 }

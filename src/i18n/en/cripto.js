@@ -147,4 +147,5 @@ export default {
   "Recuperación": "Recovery",
   "Distribuidores": "Resellers",
   "Opera con tus wallets de siempre dentro de una capa oculta que se borra si alguien intenta forzarla.": "Use your usual wallets inside a hidden layer that wipes itself if someone tries to force it.",
+  "Escenarios de riesgo": "Risk scenarios"
 }

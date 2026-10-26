@@ -5,13 +5,16 @@ import { ref, onBeforeUnmount } from 'vue'
 import SectionHeader from '@/design-system/components/SectionHeader.vue'
 import Card from '@/design-system/components/Card.vue'
 import Button from '@/design-system/components/Button.vue'
+import CalloutCard from '@/design-system/components/CalloutCard.vue'
 import Icon from '@/design-system/components/Icon.vue'
 import { useT } from '@/design-system/composables/useLang'
 import { useInView } from '@/design-system/composables/useInView'
-import { prefersReducedMotion } from '@/design-system/composables/useMedia'
+import { prefersReducedMotion, useMediaQuery } from '@/design-system/composables/useMedia'
 
 const { t } = useT()
 const reduce = prefersReducedMotion()
+/* en celulares la fila es un carrusel con scroll: se vuelve región enfocable para moverla con el teclado */
+const carousel = useMediaQuery('(max-width:640px)')
 
 /* abogados: el flujo se ilumina paso a paso mientras se ve */
 const flowEl = ref(null)
@@ -71,7 +74,7 @@ const row3 = [
         <h3 class="h5">{{ t('Datos financieros de terceros') }}</h3>
         <p class="small">{{ t('Balances, accesos a portales y archivos de clientes, fuera de la vista de quien revise tu teléfono.') }}</p>
       </Card>
-      <div ref="row" class="brow" @scroll.passive="onScroll">
+      <div ref="row" class="brow" :role="carousel ? 'region' : undefined" :aria-label="carousel ? t('Más perfiles') : undefined" :tabindex="carousel ? 0 : undefined" @scroll.passive="onScroll">
         <Card v-for="c in row3" :key="c.eyebrow" v-reveal variant="light" class="pcard rv" :style="(c.d ? '--d:' + c.d + ';' : '') + '--k:' + c.k">
           <div class="ptag"><span class="tile ico"><Icon :name="c.icon" /></span><span class="eyebrow">{{ t(c.eyebrow) }}</span></div>
           <h3 class="h5">{{ t(c.title) }}</h3>
@@ -79,16 +82,10 @@ const row3 = [
         </Card>
       </div>
       <div class="dots m-only" id="bdots" aria-hidden="true"><i v-for="k in 3" :key="k" :class="{ on: active === k - 1 }"></i></div>
-      <article v-reveal class="other rv">
-        <div class="oleft">
-          <span class="tile dk ico"><Icon name="users" /></span>
-          <div><h3 class="h4">{{ t('¿Tu caso es otro?') }}</h3><p class="body">{{ t('Médicos, consultores, activistas o familias: si tu información importa, Zi0n está pensado para ti.') }}</p></div>
-        </div>
-        <div class="obtns">
+      <CalloutCard v-reveal class="other rv" icon="users" :title="t('¿Tu caso es otro?')" :text="t('Médicos, consultores, activistas o familias: si tu información importa, Zi0n está pensado para ti.')">
           <Button to="#faq" size="md" variant="ghost">{{ t('Hablar con un asesor') }}</Button>
           <Button to="/compra?tipo=prueba" size="md" variant="primary">{{ t('Probar 15 días') }}</Button>
-        </div>
-      </article>
+      </CalloutCard>
     </div>
   </div>
 </section>
@@ -107,15 +104,8 @@ const row3 = [
 .mflow .st{display:inline-flex;align-items:center;gap:var(--zn-space-8);padding:var(--zn-space-7) var(--zn-space-12);border-radius:var(--radius-pill);background:var(--zn-light-chip);font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color-light-text);transition:background var(--zn-dur-400),color var(--zn-dur-400),box-shadow var(--zn-dur-400)}
 .mflow .st i{width:7px;height:7px;border-radius:50%;background:var(--c)}
 .mflow .st.act{background:var(--color-navy);color:var(--color-white);box-shadow:0 6px 18px -6px rgba(var(--rgb-navy),.6)}
-.mflow .ar{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--color-muted)}
-.other{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:var(--zn-space-32);padding:var(--zn-space-32) var(--zn-space-36);border-radius:var(--radius-card);background:var(--color-ink);color:var(--color-mist);position:relative;overflow:hidden}
-.other::before{content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--rgb-signal),.18),rgba(var(--rgb-signal),0));animation:drift2 12s var(--zn-ease-in-out) infinite}
-@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-120px,-50px)}}
-.other .h4{color:var(--color-mist)}.other .body{color:var(--color-ice)}
-.oleft{position:relative;display:flex;align-items:center;gap:var(--zn-space-20)}
-.oleft>div{display:flex;flex-direction:column;gap:var(--zn-space-4)}
-.tile.dk{--k:var(--rgb-signal);width:56px;height:56px;padding:14px;background:rgba(var(--rgb-signal),.14)}
-.obtns{position:relative;display:flex;gap:var(--zn-space-12);flex:none}
+.mflow .ar{font:var(--zn-weight-regular) 12px/16px var(--font-sans);color:var(--ui-muted)} /* AA: muted daba 2.87:1 sobre blanco */
+.other{grid-column:1/-1}
 .dots{display:flex;gap:var(--zn-space-6);justify-content:center}
 .dots i{width:6px;height:6px;border-radius:3px;background:var(--zn-light-dot);transition:width var(--dur-medium) var(--ease),background var(--dur-medium)}
 .dots i.on{width:22px;background:var(--color-navy)}
@@ -125,20 +115,16 @@ const row3 = [
 }
 @media (max-width:1023px){
   .bento{grid-template-columns:1fr}
-  .other{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:640px){
   .bento{gap:var(--zn-space-14)}
   .pcard{padding:var(--zn-space-24) var(--zn-space-22)}
   .brow{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);gap:var(--zn-space-12);margin:0 calc(var(--pad) * -1);padding:var(--zn-space-4) var(--pad) var(--zn-space-12);scrollbar-width:none}
   .brow::-webkit-scrollbar{display:none}
+  .brow:focus-visible{outline-offset:-2px}
   .brow::after{content:"";flex:0 0 1px}
   .brow>.pcard{flex:0 0 272px;scroll-snap-align:start}
   .dots.m-only{display:flex!important}
-  .other{padding:var(--zn-space-28) var(--zn-space-22);gap:var(--zn-space-20)}
-  .oleft{flex-direction:column;align-items:flex-start;gap:var(--zn-space-16)}
-  .obtns{flex-direction:column;width:100%}
-  .obtns .btn{width:100%}
 }
 @media (hover:none){.pcard:hover{transform:none}}
 </style>

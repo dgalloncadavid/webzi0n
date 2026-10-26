@@ -3,7 +3,8 @@
    de la oculta. Se arrastra con el puntero o con las flechas, Inicio y Fin.
    Al entrar en pantalla hace un barrido de presentación que muestra las dos capas.
    variant: cripto | graphene (cada landing tiene su propia geometría, tomada del Figma).
-   Slots: back (aurora y anillos detrás del teléfono), default (chips y burbujas). */
+   Slots: back (aurora y anillos detrás del teléfono), default (chips y burbujas).
+   Superficie fija: oscura (manija tinta con signal); el anillo de foco toma el color del contenedor. */
 import { ref, reactive, computed, onMounted, onBeforeUnmount, unref } from 'vue'
 import Icon from './Icon.vue'
 import { prefersReducedMotion } from '../composables/useMedia'
@@ -116,7 +117,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-<div ref="hv" class="hv" :class="['hv--' + variant, { drag, touched }]" id="hv" role="group" :aria-label="ariaLabel" @pointerdown="down" @pointermove="move" @pointerup="up" @pointercancel="up">
+<div ref="hv" class="hv" :class="['hv--' + variant, { drag, touched }]" id="hv" data-theme="dark" role="group" :aria-label="ariaLabel" @pointerdown="down" @pointermove="move" @pointerup="up" @pointercancel="up">
   <div ref="par" class="par"><slot name="back" /></div>
   <div class="phone" id="phone"><img class="ph-base" :src="base.src" :width="base.width" :height="base.height" :alt="base.alt" draggable="false"><img class="ph-vis" id="vis" :src="visible.src" :width="visible.width" :height="visible.height" :alt="visible.alt" draggable="false" :style="{ clipPath: st.clip }"></div>
   <span class="divider" id="divider" :style="{ transform: st.dv }"></span>
@@ -127,7 +128,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.hv{position:relative;flex:none;touch-action:pan-y;cursor:ew-resize;-webkit-user-select:none;user-select:none}
+.hv{--ui-focus:inherit;position:relative;flex:none;touch-action:pan-y;cursor:ew-resize;-webkit-user-select:none;user-select:none}
 .par{position:absolute;inset:0;transition:transform var(--zn-dur-500) var(--ease)}
 .phone{position:absolute}
 .phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}

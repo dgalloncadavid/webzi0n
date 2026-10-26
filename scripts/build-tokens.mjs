@@ -63,6 +63,18 @@ for (const [k, v] of Object.entries(S.layout)) out.push(`  --layout-${k}:${v};`)
 out.push('}');
 out.push('');
 
+/* ---------- temas de color: dark y light ----------
+   :root es dark. Un contenedor claro (.light o [data-theme="light"]) redeclara los --ui-*
+   y el color de los roles tipográficos; una isla oscura dentro de él los repone. */
+const TH = T.theme;
+const uiDecls = (set) => Object.entries(set).map(([k, v]) => `--ui-${k}:${ref(v)}`);
+const roleDecls = Object.entries(TH.roles).map(([role, key]) => `--type-${role}-color:var(--ui-${key})`);
+out.push('/* ---------- temas de color (ver tokens.json > theme) ---------- */');
+out.push(`:root,[data-theme="dark"]{${uiDecls(TH.dark).join(';')}}`);
+out.push(`.light,[data-theme="light"]{${uiDecls(TH.light).concat(roleDecls).join(';')}}`);
+out.push(`.light [data-theme="dark"],[data-theme="light"] [data-theme="dark"]{${roleDecls.join(';')}}`);
+out.push('');
+
 /* ---------- superficies ---------- */
 const ROLE_PROPS = ['weight', 'size', 'line', 'track', 'family', 'color'];
 function typeDecls(type) {

@@ -55,3 +55,40 @@ Una línea por decisión con su porqué.
 - **Capturas con `prefers-reduced-motion`:** las animaciones en bucle no dependen del instante de captura; se hizo además una pasada con animaciones activas para revisar el movimiento.
 - **Reporte versionado en `qa/report/` con JPEG:** se puede abrir sin instalar nada y pesa una fracción de los PNG de trabajo, que quedan fuera de git.
 - **`/ds` con `noindex` y sin enlaces desde el sitio:** es una herramienta interna.
+
+## Accesibilidad y temas de color
+
+- **Dos temas semánticos (`tokens.json > theme`: dark y light) con tokens `--ui-*`:** cada componente lee solo esos tokens; los valores dark son exactamente los que ya usaba el sitio, por eso el sitio oscuro no cambia.
+- **Tokens nuevos `--ui-*` en vez de volver dinámicos los `--color-*`:** los `--color-*` siguen siendo constantes globales que usan las secciones de las páginas; cambiarlos por tema habría alterado secciones que no son del sistema.
+- **Atributo `data-theme="dark|light"` y no `data-surface`:** `data-surface` ya lo usa el router en `<html>` para el tipo de página (landing, graphene, checkout).
+- **`.light` equivale a `[data-theme="light"]`:** las secciones claras del inicio ya usaban esa clase; así toman el tema claro sin tocar su marcado.
+- **El tema redeclara el color de los roles tipográficos (`.h2`, `.body`, `.eyebrow`…) y una isla oscura dentro de un contenedor claro los repone:** las variables CSS se resuelven donde se declaran, así que cada contenedor tiene que volver a declararlas para que su contenido cambie.
+- **Las reglas `.surface-landing .light .h2 { color }` pasan a ser tokens:** con reglas de selector, un título dentro de una tarjeta oscura en una sección clara quedaba navy sobre navy (el error de la RouteCard en /ds).
+- **Superficie fija (`data-theme` en la raíz): RouteCard, PlanCard (clara; la destacada, oscura), Card (dark y light), StepCard card, CalloutCard, StickyBar, Toast, Navbar, FloatingChip, LayerCompare y Footer graphene:** tienen fondo propio, así que sus colores no pueden depender del contenedor.
+- **Se adaptan al tema: Accordion, SectionHeader, Badge, Button ghost y text, LangSwitch, TextField, SelectField, RadioCard, PaymentMethod, OrderSummary, ToolItem, StepCard compact y Footer:** no tienen fondo propio o su fondo es translúcido.
+- **El anillo de foco de una superficie fija enfocable (RouteCard, manija del comparador) hereda el color de foco del contenedor (`--ui-focus: inherit`):** el contorno se dibuja por fuera, sobre el fondo del contenedor; signal sobre claro da 1.35:1.
+- **Foco en claro con aurora AA (`#354FFF`, 5.22:1 sobre mist):** signal no llega a 3:1 sobre fondos claros; aurora es el acento secundario de la marca.
+- **Tonos AA oscurecidos por luminosidad (HSL) dentro de su familia, hasta el primer valor que pasa:** es el cambio mínimo que conserva tono y saturación. Los valores y ratios están en las notas de cada primitivo en `tokens.json`.
+- **`light-eyebrow` pasa de `#6E77A8` a `#616BA0` y el texto atenuado claro lo usa también:** el original da 4.31:1 sobre blanco; el nuevo da 5.10:1 y la diferencia queda bajo el umbral del QA.
+- **Signal y amber AA calculados para el peor caso (tag sobre su tinte dentro de una opción elegida):** los tintes se suman y un tono justo en 4.5:1 sobre blanco bajaba a 4.35:1.
+- **`--tone` en las clases de tono (`.c-sig`, `.c-aur`…):** el ícono de ToolItem y RadioCard usa el acento apto para el tema; `--rgb` sigue alimentando los tintes decorativos.
+- **Logo del pie por tokens (`--ui-logo-white`, `--ui-logo-color`) con el `logo-color.svg` que ya existía:** el logo blanco desaparece sobre claro; el de color tiene la palabra en navy. Se carga con `loading="lazy"` para que las páginas oscuras no lo descarguen.
+- **"¿Tu caso es otro?" se extrae a `CalloutCard`:** era una tarjeta tinta dentro de la sección clara con un botón ghost adentro; como componente con superficie fija se documenta y se prueba en /ds. El CSS se movió sin cambios.
+- **Carruseles móviles (`.brow` del inicio y `.grid4` de Cripto) como región enfocable solo bajo 640 px:** axe exige que una región con scroll sea alcanzable con teclado; en escritorio no hay scroll y sería una parada inútil.
+- **El código de las muestras de /ds hace salto de línea en vez de scroll:** evita 25 paradas de Tab extra solo para desplazar texto.
+- **Tabla de contraste de /ds calculada en el navegador con los tokens vigentes:** no puede quedar desactualizada respecto a `tokens.json`; las muestras se dibujan en SVG para que la tabla misma no sea texto evaluado.
+- **Una sola librería de contraste (`src/design-system/a11y/contrast.js`) para /ds y para las pruebas:** las pruebas inyectan el mismo archivo, así el número de la tabla y el de la prueba coinciden.
+- **`npm run a11y` combina axe con pruebas propias (foco, texto de /ds, teclado, orden de Tab):** axe no mide el contraste del anillo de foco ni decide el texto sobre degradados.
+- **La prueba de texto de /ds exige 4.5:1 a todo texto, también al grande:** es lo que pide el encargo; el texto grande de los componentes ya supera 4.5:1. Deshabilitado: 3:1.
+- **Pares oscuros bajo 3:1 que se conservan (borde de campo 1.99:1, aro del radio 2.04:1, divisor 1.41:1, aro del ícono del FAQ 2.11:1) y placeholder oscuro (3.29:1):** son valores del sitio público y subirlos cambia el checkout y las landings mucho más allá de 0.004%; están marcados en la tabla de /ds y en NOTES.md.
+- **Los textos públicos que no llegan a AA se corrigen aunque el inicio pase de 0.004% (queda en 0.005% a 0.011%):** son tres textos cortos ("USD", el eyebrow aurora de la tarjeta de ruta y la flecha del flujo de abogados) y el encargo pide ajustar el tono de todo par que no llegue a AA; se eligió el tono mínimo de cada familia. NOTES.md dice cómo revertirlos si se prefiere la paridad exacta.
+- **Eyebrow aurora de la tarjeta de ruta con `aurora-on-tint` (`#97A4FF`):** sobre su propio degradado aurora quedaba entre 3.52:1 y 4.2:1 según la posición; axe no lo detecta (texto sobre degradado). El tono aclarado llega a 4.54:1 en el peor punto y su diferencia con aurora queda bajo el umbral del QA.
+- **Modalidad teclado (`html.kbd`) para el foco de un campo con error:** el borde de error tapaba al de foco. `:focus-visible` siempre aplica a los inputs, así que cambiarlo habría alterado la pantalla de errores del pago (el sitio enfoca el primer campo tras un clic); con `html.kbd` el foco se ve solo al llegar con Tab.
+- **Medición por píxeles para el contraste que axe deja sin decidir:** se oculta el texto, se captura su caja y se compara con los píxeles reales del fondo (percentil 5, para descartar bordes de antialias). Es la única forma de verificar texto sobre degradados e imágenes sin revisarlo a mano.
+- **Las pruebas esperan dos cuadros después de cada Tab:** con movimiento reducido todas las transiciones duran 0.01 ms y el estilo leído en el mismo cuadro es el inicial (contorno de 3 px color texto); no es lo que ve la persona.
+- **El recorrido de Tab empieza desde un punto fijo al inicio del documento:** después de pulsar un botón, el siguiente Tab sigue desde ese botón y el recorrido no vería el encabezado.
+- **Botón de muestra "Foco" de /ds fuera del orden de Tab (`tabindex="-1"`):** tiene el contorno puesto siempre para ilustrar el estado; enfocarlo no cambiaría nada.
+- **`aurora-on-glow` (`#A6B2FF`) para el número de la tarjeta aurora y `.62` en los textos atenuados de la comparativa:** son los ajustes mínimos de tono que los llevan a AA; el segundo no se distingue a simple vista.
+- **Excepciones conocidas en `qa/a11y/exceptions.json`, con motivo, en vez de esconderlas o forzar el diseño:** dos casos del sitio público (números sobre círculos alert, blanco sobre el panel degradado) solo se corrigen cambiando colores de fondo que se ven; la prueba los reporta aparte para que la decisión quede a la vista.
+- **El estado "verificando" del pago solo pasa por axe:** redirige a los 2 segundos y una medición por píxeles o un recorrido de Tab quedarían a medias.
+

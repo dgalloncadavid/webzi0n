@@ -28,6 +28,7 @@ Otros comandos:
 ```bash
 npm run tokens     # regenera src/styles/tokens.css desde src/design-system/tokens.json
 npm run qa         # compara contra el sitio original (ver "Control de calidad")
+npm run a11y       # accesibilidad WCAG 2.2 AA (ver "Accesibilidad")
 ```
 
 ## Desplegar
@@ -92,11 +93,12 @@ src/
     base.css              reset, roles tipográficos, tonos, íconos, revelado, movimiento reducido
     layout-landing.css    contenedor, secciones y secciones claras de inicio y Cripto
   design-system/
-    tokens.json           fuente de los tokens
+    tokens.json           fuente de los tokens (incluye los temas dark y light)
+    a11y/contrast.js      contraste WCAG: lo usan la tabla de /ds y las pruebas
     components/           Button, Badge, FloatingChip, LangSwitch, Navbar, Footer, SectionHeader,
                           Card, Accordion, PlanCard, RouteCard, ToolItem, PhoneVisual, LayerCompare,
                           StepCard, Toast, TextField, SelectField, RadioCard, PaymentMethod,
-                          OrderSummary, StickyBar, Icon
+                          OrderSummary, StickyBar, CalloutCard, Icon
     composables/          useLang, usePageMeta, useInView, useMagnetic, useSpotlight, useCountUp,
                           useMenu, useToast, useMedia, useLinkTo
     directives/reveal.js  v-reveal (aparición al hacer scroll)
@@ -111,12 +113,13 @@ src/
   i18n/en/                diccionarios ES → EN por página (el español es el texto fuente)
 public/assets/            imágenes originales sin recomprimir, por página
 scripts/                  build-tokens.mjs, spa-fallback.mjs
-qa/                       scripts de comparación y reporte (qa/report/index.html)
+qa/                       comparación visual (qa/report/index.html) y accesibilidad (qa/a11y/index.html)
 ```
 
 ## Tokens y sistema de diseño
 
 - **Tokens:** `src/design-system/tokens.json` es la fuente; `npm run tokens` genera `src/styles/tokens.css`. Hay primitivos (`--zn-ink`, `--zn-space-24`, `--zn-radius-24`…), semánticos (`--color-line`, `--shadow-card-hover`, `--ease`…) y una **superficie** por página (`.surface-landing`, `.surface-home`, `.surface-graphene`, `.surface-checkout`) que fija la escala tipográfica de `.h1`, `.h2`, `.body`, etc. en cada breakpoint.
+- **Temas de color:** `tokens.json > theme` define dos superficies, dark y light, con su set completo (`--ui-bg`, `--ui-card`, `--ui-text`, `--ui-text-2`, `--ui-muted`, `--ui-border`, `--ui-divider`, `--ui-focus`, estados hover, activo y deshabilitado, y acentos aptos para texto). `:root` es dark; un contenedor con `data-theme="light"` o la clase `.light` pasa a claro. Los componentes con fondo propio fijan su superficie con `data-theme` en la raíz; los demás toman la del contenedor. /ds muestra la clasificación de cada uno.
 - **Catálogo:** abre `/ds` (por ejemplo `http://localhost:5173/ds`). Muestra la paleta con nombre y valor, la escala tipográfica por superficie y ancho, espaciados, radios, sombras, desenfoques, movimiento, breakpoints, íconos y cada componente con sus variantes y estados sobre fondo oscuro y claro, con selector ES/EN.
 - Las razones de cada elección están en `DECISIONS.md`; los comportamientos del original que se conservaron aunque parezcan errores, en `NOTES.md`.
 
@@ -130,3 +133,17 @@ Necesita el sitio original en `../zion` (o la ruta en `ORIGINAL_DIR`) y un build
 npm run build
 ORIGINAL_DIR=/ruta/al/sitio/original npm run qa
 ```
+
+## Accesibilidad
+
+`npm run a11y` (con un build previo) revisa WCAG 2.2 AA en `/ds` y en todas las páginas públicas, a 1280 y 390 px, en español e inglés:
+
+- **axe-core** en cada landing con el FAQ abierto y cerrado, en cada paso del checkout (con el aviso, el modal de tiendas, la sugerencia de correo y la pantalla final) y en las dos páginas de pago (con errores y verificando).
+- **Foco:** recorre cada página con Tab y exige un indicador visible con 3:1 contra su fondo.
+- **Texto de /ds:** mide cada texto de cada componente en el panel oscuro y en el claro, también con el puntero encima; falla bajo 4.5:1 (deshabilitado: 3:1).
+- **Teclado:** el Accordion abre y cierra con Enter y Espacio y mantiene `aria-expanded`; el orden de Tab de `/ds` y del checkout sigue el documento, sin tabindex positivo, paradas ocultas ni elementos inalcanzables.
+
+- **Contraste sobre degradados e imágenes:** lo que axe deja "sin decidir" se mide con los píxeles reales del fondo (captura con y sin texto).
+
+El reporte queda en `qa/a11y/index.html` (y `qa/a11y/results.json`); el comando sale con error si algo falla. Los textos del diseño público que no llegan al mínimo y se conservan a propósito están en `qa/a11y/exceptions.json` y se muestran aparte. La tabla de contraste de cada tema está en `/ds#accesibilidad`.
+

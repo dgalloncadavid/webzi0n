@@ -2,7 +2,8 @@
 /* Barra superior con enlaces, selector de idioma, CTA y menú móvil (< 1024 px).
    variant: home | cripto | graphene (las tres landings tienen medidas propias)
    links:   [{ label, to, ext? }]  ext = enlace a otra página (ícono de flecha en el menú móvil)
-   Las etiquetas llegan en español y se traducen con el diccionario de la página. */
+   Las etiquetas llegan en español y se traducen con el diccionario de la página.
+   Superficie fija: oscura (barra y menú móvil). */
 import { asset } from '@/design-system/asset'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
@@ -30,7 +31,7 @@ const innerClass = computed(() => (props.variant === 'graphene' ? 'frame' : 'wra
 </script>
 
 <template>
-<header class="nav" :class="['nav--' + variant, { open: menu.open.value }]" id="top">
+<header class="nav" :class="['nav--' + variant, { open: menu.open.value }]" id="top" data-theme="dark">
   <div :class="[innerClass, 'nav-in']">
     <component :is="isRouteLink(homeTo) ? RouterLink : 'a'" :to="isRouteLink(homeTo) ? homeTo : undefined" :href="isRouteLink(homeTo) ? undefined : homeTo" class="logo" :aria-label="t('Zi0n, inicio')"><img :src="asset('assets/logo-white.svg')" width="138" height="32" alt="Zi0n"></component>
     <nav class="links" :aria-label="t('Principal')">
@@ -45,7 +46,7 @@ const innerClass = computed(() => (props.variant === 'graphene' ? 'frame' : 'wra
     </div>
   </div>
 </header>
-<div class="mmenu" :class="['mmenu--' + variant, { open: menu.open.value }]" id="mmenu" @click="$event.target.closest('a') && menu.close()">
+<div class="mmenu" :class="['mmenu--' + variant, { open: menu.open.value }]" id="mmenu" data-theme="dark" @click="$event.target.closest('a') && menu.close()">
   <nav class="mlinks" :aria-label="t('Principal móvil')">
     <template v-for="l in links" :key="l.to"><component :is="isRouteLink(l.to) ? RouterLink : 'a'" :to="isRouteLink(l.to) ? l.to : undefined" :href="isRouteLink(l.to) ? undefined : l.to">{{ t(l.label) }}</component></template>
     <RouterLink v-for="l in extraLinks" :key="'m' + l.to" :to="l.to" class="ext">{{ t(l.label) }} <span class="ico"><Icon name="arrow-up-right" /></span></RouterLink>

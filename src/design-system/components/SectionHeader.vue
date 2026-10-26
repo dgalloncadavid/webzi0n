@@ -1,6 +1,6 @@
 <script setup>
 /* Encabezado de sección: eyebrow en píldora, título y bajada.
-   align: center | left. En una sección .light toma los colores claros. */
+   align: center | left. Se adapta al tema: en un contenedor claro toma los colores claros. */
 defineProps({
   eyebrow: { type: String, default: '' },
   title: { type: String, default: '' },
@@ -16,7 +16,7 @@ defineProps({
 <style scoped>
 .shead{display:flex;flex-direction:column;align-items:center;gap:var(--zn-space-16);max-width:840px;margin:0 auto var(--zn-space-48);text-align:center}
 .shead.left{align-items:flex-start;text-align:left;margin-left:0;max-width:680px}
-.eyebrow-b{display:inline-flex;align-self:center;padding:var(--zn-space-4) var(--zn-space-12);border-radius:var(--radius-pill);background:var(--color-glass);border:1px solid var(--color-line);font:var(--zn-weight-medium) 12px/16px var(--font-mono);letter-spacing:.96px;text-transform:uppercase;color:var(--color-ice)}
+.eyebrow-b{display:inline-flex;align-self:center;padding:var(--zn-space-4) var(--zn-space-12);border-radius:var(--radius-pill);background:var(--ui-raised);border:1px solid var(--ui-line);font:var(--zn-weight-medium) 12px/16px var(--font-mono);letter-spacing:.96px;text-transform:uppercase;color:var(--ui-text-2)}
 .shead.left .eyebrow-b{align-self:flex-start}
 @media (max-width:640px){
   .shead{margin-bottom:var(--zn-space-32);gap:var(--zn-space-12)}

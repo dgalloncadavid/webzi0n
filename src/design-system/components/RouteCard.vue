@@ -1,6 +1,7 @@
 <script setup>
 /* Tarjeta de ruta: enlace grande a otra página, con spotlight que sigue al puntero.
-   tone: aurora | signal */
+   tone: aurora | signal
+   Superficie fija: oscura (data-theme="dark"), también dentro de un contenedor claro. */
 import { ref } from 'vue'
 import Icon from './Icon.vue'
 import Button from './Button.vue'
@@ -23,7 +24,7 @@ const link = useLinkTo(props.to)
 </script>
 
 <template>
-<a ref="el" class="route" :class="tone === 'signal' ? 'c-sig' : 'c-aur'" :href="link.href.value" @click="link.onClick">
+<a ref="el" class="route" :class="tone === 'signal' ? 'c-sig' : 'c-aur'" data-theme="dark" :href="link.href.value" @click="link.onClick">
         <span class="spot"></span>
         <div class="tags"><span v-for="tg in tags" :key="tg">{{ tg }}</span></div>
         <span class="eyebrow acc">{{ eyebrow }}</span>
@@ -37,14 +38,17 @@ const link = useLinkTo(props.to)
 </template>
 
 <style scoped>
-.route{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:var(--zn-space-20);padding:var(--zn-space-40);border-radius:var(--radius-card);border:1px solid var(--color-line);background:linear-gradient(135deg,rgba(var(--rgb),.22) 0%,rgba(var(--rgb),0) 60%),var(--color-navy);transition:transform var(--dur-slow) var(--ease),border-color var(--zn-dur-350),box-shadow var(--zn-dur-350)}
+/* el anillo de foco se dibuja por fuera de la tarjeta: toma el color de foco del contenedor */
+.route{--ui-focus:inherit;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:var(--zn-space-20);padding:var(--zn-space-40);border-radius:var(--radius-card);border:1px solid var(--color-line);background:linear-gradient(135deg,rgba(var(--rgb),.22) 0%,rgba(var(--rgb),0) 60%),var(--color-navy);transition:transform var(--dur-slow) var(--ease),border-color var(--zn-dur-350),box-shadow var(--zn-dur-350)}
 .route:hover{transform:translateY(-6px);border-color:rgba(var(--rgb),.55);box-shadow:0 30px 60px -30px rgba(var(--rgb),.55)}
 .route .spot{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity var(--dur-medium);background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(var(--rgb),.18),transparent 60%)}
 .route:hover .spot{opacity:1}
 .route>*:not(.spot){position:relative}
 .tags{display:flex;gap:var(--zn-space-8);flex-wrap:wrap}
 .tags span{padding:var(--zn-space-5) var(--zn-space-10);border-radius:var(--radius-pill);border:1px solid var(--color-line);font:var(--zn-weight-medium) 12px/16px var(--font-mono);letter-spacing:.96px;text-transform:uppercase;color:var(--color-ice)}
-.eyebrow.acc{color:rgb(var(--rgb))}
+.eyebrow.acc{color:var(--acc,rgb(var(--rgb)))}
+/* aurora sobre su propio degradado no llega a 4.5:1 (3.52:1 en la esquina): versión AA aclarada */
+.route.c-aur{--acc:var(--zn-aurora-on-tint)}
 .rlist{display:flex;flex-direction:column;gap:var(--zn-space-12)}
 .rlist li{display:flex;align-items:flex-start;gap:var(--zn-space-12);font:var(--zn-weight-regular) 14px/20px var(--font-sans);color:var(--color-mist)}
 .ck{border-radius:var(--radius-round);display:grid;place-items:center;flex:none}

@@ -9,11 +9,9 @@
 .surface-landing .glowbg{position:absolute;width:760px;height:760px;border-radius:var(--radius-round);pointer-events:none;background:radial-gradient(closest-side,rgba(var(--rgb),.16),rgba(var(--rgb),0));filter:blur(var(--zn-blur-10))}
 .surface-landing .ring{position:absolute;border-radius:var(--radius-round);border:1px solid rgba(var(--rgb-ice),var(--a,.12))}
 
-/* ---------- secciones claras ---------- */
-.surface-landing .light{background:var(--color-light-bg);color:var(--color-ink)}
-.surface-landing .light .h2,.surface-landing .light .h4,.surface-landing .light .h5{color:var(--color-light-title)}
-.surface-landing .light .body-lg,.surface-landing .light .body,.surface-landing .light .small{color:var(--color-light-text)}
-.surface-landing .light .eyebrow{color:var(--color-light-eyebrow)}
-.surface-landing .light .eyebrow-b{background:var(--color-light-surface);border-color:var(--zn-light-line);color:var(--color-light-text)}
+/* ---------- secciones claras ----------
+   .light activa el tema claro (tokens.css): los componentes y los roles tipográficos
+   toman --ui-* del tema; aquí solo queda el fondo de la sección. */
+.surface-landing .light{background:var(--ui-bg);color:var(--color-ink)}
 .surface-landing .sec.light{padding:var(--sy) 0}
 .surface-landing .light+.sec,.surface-landing .sec+.light{padding-top:var(--sy)}

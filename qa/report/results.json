@@ -3,8 +3,8 @@
     {
       "page": "home",
       "width": 1280,
-      "pixels": 134,
-      "pct": 0.002,
+      "pixels": 527,
+      "pct": 0.006,
       "sizeA": [
         1280,
         6818
@@ -23,8 +23,8 @@
     {
       "page": "home",
       "width": 768,
-      "pixels": 254,
-      "pct": 0.003,
+      "pixels": 655,
+      "pct": 0.009,
       "sizeA": [
         768,
         9614
@@ -43,8 +43,8 @@
     {
       "page": "home",
       "width": 390,
-      "pixels": 3,
-      "pct": 0,
+      "pixels": 410,
+      "pct": 0.01,
       "sizeA": [
         390,
         10795
@@ -63,8 +63,8 @@
     {
       "page": "home",
       "width": 360,
-      "pixels": 43,
-      "pct": 0.001,
+      "pixels": 442,
+      "pct": 0.011,
       "sizeA": [
         360,
         11049
@@ -83,8 +83,8 @@
     {
       "page": "grapheneos",
       "width": 1280,
-      "pixels": 2,
-      "pct": 0,
+      "pixels": 68,
+      "pct": 0.001,
       "sizeA": [
         1280,
         6299
@@ -103,8 +103,8 @@
     {
       "page": "grapheneos",
       "width": 768,
-      "pixels": 1,
-      "pct": 0,
+      "pixels": 65,
+      "pct": 0.001,
       "sizeA": [
         768,
         6355
@@ -123,8 +123,8 @@
     {
       "page": "grapheneos",
       "width": 390,
-      "pixels": 9,
-      "pct": 0,
+      "pixels": 74,
+      "pct": 0.003,
       "sizeA": [
         390,
         6284
@@ -143,8 +143,8 @@
     {
       "page": "grapheneos",
       "width": 360,
-      "pixels": 26,
-      "pct": 0.001,
+      "pixels": 89,
+      "pct": 0.004,
       "sizeA": [
         360,
         6224
@@ -485,8 +485,8 @@
     {
       "page": "home",
       "width": 1280,
-      "pixels": 118,
-      "pct": 0.001,
+      "pixels": 453,
+      "pct": 0.005,
       "sizeA": [
         1280,
         6830
@@ -505,8 +505,8 @@
     {
       "page": "home",
       "width": 768,
-      "pixels": 295,
-      "pct": 0.004,
+      "pixels": 636,
+      "pct": 0.009,
       "sizeA": [
         768,
         9474
@@ -525,8 +525,8 @@
     {
       "page": "home",
       "width": 390,
-      "pixels": 4,
-      "pct": 0,
+      "pixels": 339,
+      "pct": 0.008,
       "sizeA": [
         390,
         10745
@@ -545,8 +545,8 @@
     {
       "page": "home",
       "width": 360,
-      "pixels": 34,
-      "pct": 0.001,
+      "pixels": 371,
+      "pct": 0.009,
       "sizeA": [
         360,
         10995
@@ -565,8 +565,8 @@
     {
       "page": "grapheneos",
       "width": 1280,
-      "pixels": 2,
-      "pct": 0,
+      "pixels": 68,
+      "pct": 0.001,
       "sizeA": [
         1280,
         6299
@@ -585,8 +585,8 @@
     {
       "page": "grapheneos",
       "width": 768,
-      "pixels": 17,
-      "pct": 0,
+      "pixels": 81,
+      "pct": 0.002,
       "sizeA": [
         768,
         6381
@@ -605,8 +605,8 @@
     {
       "page": "grapheneos",
       "width": 390,
-      "pixels": 11,
-      "pct": 0,
+      "pixels": 76,
+      "pct": 0.003,
       "sizeA": [
         390,
         6342
@@ -625,8 +625,8 @@
     {
       "page": "grapheneos",
       "width": 360,
-      "pixels": 26,
-      "pct": 0.001,
+      "pixels": 89,
+      "pct": 0.004,
       "sizeA": [
         360,
         6290
@@ -1124,7 +1124,7 @@
       "scenario": "tarjeta",
       "width": 1280,
       "step": "1-home",
-      "pct": 0.002,
+      "pct": 0.006,
       "sizeA": "1280x6818",
       "sizeB": "1280x6818",
       "url": {
@@ -1532,7 +1532,7 @@
       "scenario": "tarjeta",
       "width": 768,
       "step": "1-home",
-      "pct": 0.003,
+      "pct": 0.009,
       "sizeA": "768x9614",
       "sizeB": "768x9614",
       "url": {
@@ -1940,7 +1940,7 @@
       "scenario": "tarjeta",
       "width": 390,
       "step": "1-home",
-      "pct": 0,
+      "pct": 0.01,
       "sizeA": "390x10795",
       "sizeB": "390x10795",
       "url": {
@@ -2348,7 +2348,7 @@
       "scenario": "tarjeta",
       "width": 360,
       "step": "1-home",
-      "pct": 0.001,
+      "pct": 0.011,
       "sizeA": "360x11049",
       "sizeB": "360x11049",
       "url": {

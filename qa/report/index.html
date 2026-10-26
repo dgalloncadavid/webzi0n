@@ -26,11 +26,11 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
 </style></head><body><main>
 <h1>Zi0n · reporte de QA</h1>
 <p>Comparación del sitio estático original con la versión Vue. Capturas de página completa en Chromium (Playwright) a 1280, 768, 390 y 360 px, con <code>prefers-reduced-motion: reduce</code> para que las animaciones en bucle no metan ruido; la página se recorre entera antes de capturar para disparar los revelados. La diferencia se mide con pixelmatch (umbral 0,1) sobre la captura completa.</p>
-<p>Generado: 2026-10-26 06:12 UTC.</p>
+<p>Generado: 2026-10-26 15:12 UTC.</p>
 <div class="kpis">
-  <div class="kpi"><b>0,003 %</b><span>máxima diferencia, 24 capturas en español</span></div>
-  <div class="kpi"><b>0,004 %</b><span>máxima diferencia, 24 capturas en inglés</span></div>
-  <div class="kpi"><b>0,003 %</b><span>máxima diferencia en 136 estados del flujo de compra</span></div>
+  <div class="kpi"><b>0,011 %</b><span>máxima diferencia, 24 capturas en español</span></div>
+  <div class="kpi"><b>0,009 %</b><span>máxima diferencia, 24 capturas en inglés</span></div>
+  <div class="kpi"><b>0,011 %</b><span>máxima diferencia en 136 estados del flujo de compra</span></div>
   <div class="kpi"><b>8/8</b><span>pruebas de comportamiento con resultado idéntico al original</span></div>
   <div class="kpi"><b>0</b><span>errores de consola en la versión Vue</span></div>
   <div class="kpi"><b>0</b><span>capturas con desborde horizontal</span></div>
@@ -71,7 +71,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
     <td><a href="img/flow-prueba-1280-12-listo-orig.jpg">original</a> · <a href="img/flow-prueba-1280-12-listo-vue.jpg">vue</a></td></tr>
     <tr><td>prueba</td><td>1280</td><td>13-listo-en</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
     <td><a href="img/flow-prueba-1280-13-listo-en-orig.jpg">original</a> · <a href="img/flow-prueba-1280-13-listo-en-vue.jpg">vue</a></td></tr>
-    <tr><td>tarjeta</td><td>1280</td><td>1-home</td><td><span class="pill aa">0,002 %</span></td><td><code>/</code></td>
+    <tr><td>tarjeta</td><td>1280</td><td>1-home</td><td><span class="pill aa">0,006 %</span></td><td><code>/</code></td>
     <td><a href="img/flow-tarjeta-1280-1-home-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-1-home-vue.jpg">vue</a></td></tr>
     <tr><td>tarjeta</td><td>1280</td><td>2-plan90</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
     <td><a href="img/flow-tarjeta-1280-2-plan90-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-2-plan90-vue.jpg">vue</a></td></tr>
@@ -139,7 +139,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
     <td><a href="img/flow-prueba-390-12-listo-orig.jpg">original</a> · <a href="img/flow-prueba-390-12-listo-vue.jpg">vue</a></td></tr>
     <tr><td>prueba</td><td>390</td><td>13-listo-en</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
     <td><a href="img/flow-prueba-390-13-listo-en-orig.jpg">original</a> · <a href="img/flow-prueba-390-13-listo-en-vue.jpg">vue</a></td></tr>
-    <tr><td>tarjeta</td><td>390</td><td>1-home</td><td><span class="pill ok">0 %</span></td><td><code>/</code></td>
+    <tr><td>tarjeta</td><td>390</td><td>1-home</td><td><span class="pill warn">0,01 %</span></td><td><code>/</code></td>
     <td><a href="img/flow-tarjeta-390-1-home-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-1-home-vue.jpg">vue</a></td></tr>
     <tr><td>tarjeta</td><td>390</td><td>2-plan90</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
     <td><a href="img/flow-tarjeta-390-2-plan90-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-2-plan90-vue.jpg">vue</a></td></tr>
@@ -186,7 +186,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
 <nav class="toc"><a href="#home-1280">home-1280</a><a href="#home-768">home-768</a><a href="#home-390">home-390</a><a href="#home-360">home-360</a><a href="#grapheneos-1280">grapheneos-1280</a><a href="#grapheneos-768">grapheneos-768</a><a href="#grapheneos-390">grapheneos-390</a><a href="#grapheneos-360">grapheneos-360</a><a href="#cripto-1280">cripto-1280</a><a href="#cripto-768">cripto-768</a><a href="#cripto-390">cripto-390</a><a href="#cripto-360">cripto-360</a><a href="#compra-1280">compra-1280</a><a href="#compra-768">compra-768</a><a href="#compra-390">compra-390</a><a href="#compra-360">compra-360</a><a href="#pago-cripto-1280">pago-cripto-1280</a><a href="#pago-cripto-768">pago-cripto-768</a><a href="#pago-cripto-390">pago-cripto-390</a><a href="#pago-cripto-360">pago-cripto-360</a><a href="#pago-tarjeta-1280">pago-tarjeta-1280</a><a href="#pago-tarjeta-768">pago-tarjeta-768</a><a href="#pago-tarjeta-390">pago-tarjeta-390</a><a href="#pago-tarjeta-360">pago-tarjeta-360</a></nav>
 
     <section class="pair" id="home-1280">
-      <header><h3>home · 1280 px </h3><span class="pill aa">0,002 %</span><small>1280×6818 / 1280×6818 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 1280 px </h3><span class="pill aa">0,006 %</span><small>1280×6818 / 1280×6818 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-1280-orig.jpg" alt="Original home 1280"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-1280-vue.jpg" alt="Vue home 1280"></figure>
@@ -194,7 +194,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-768">
-      <header><h3>home · 768 px </h3><span class="pill aa">0,003 %</span><small>768×9614 / 768×9614 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 768 px </h3><span class="pill aa">0,009 %</span><small>768×9614 / 768×9614 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-768-orig.jpg" alt="Original home 768"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-768-vue.jpg" alt="Vue home 768"></figure>
@@ -202,7 +202,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-390">
-      <header><h3>home · 390 px </h3><span class="pill ok">0 %</span><small>390×10795 / 390×10795 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 390 px </h3><span class="pill warn">0,01 %</span><small>390×10795 / 390×10795 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-390-orig.jpg" alt="Original home 390"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-390-vue.jpg" alt="Vue home 390"></figure>
@@ -210,7 +210,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-360">
-      <header><h3>home · 360 px </h3><span class="pill aa">0,001 %</span><small>360×11049 / 360×11049 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 360 px </h3><span class="pill warn">0,011 %</span><small>360×11049 / 360×11049 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-360-orig.jpg" alt="Original home 360"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-360-vue.jpg" alt="Vue home 360"></figure>
@@ -218,7 +218,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-1280">
-      <header><h3>grapheneos · 1280 px </h3><span class="pill ok">0 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 1280 px </h3><span class="pill aa">0,001 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-1280-orig.jpg" alt="Original grapheneos 1280"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-1280-vue.jpg" alt="Vue grapheneos 1280"></figure>
@@ -226,7 +226,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-768">
-      <header><h3>grapheneos · 768 px </h3><span class="pill ok">0 %</span><small>768×6355 / 768×6355 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 768 px </h3><span class="pill aa">0,001 %</span><small>768×6355 / 768×6355 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-768-orig.jpg" alt="Original grapheneos 768"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-768-vue.jpg" alt="Vue grapheneos 768"></figure>
@@ -234,7 +234,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-390">
-      <header><h3>grapheneos · 390 px </h3><span class="pill ok">0 %</span><small>390×6284 / 390×6284 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 390 px </h3><span class="pill aa">0,003 %</span><small>390×6284 / 390×6284 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-390-orig.jpg" alt="Original grapheneos 390"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-390-vue.jpg" alt="Vue grapheneos 390"></figure>
@@ -242,7 +242,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-360">
-      <header><h3>grapheneos · 360 px </h3><span class="pill aa">0,001 %</span><small>360×6224 / 360×6224 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 360 px </h3><span class="pill aa">0,004 %</span><small>360×6224 / 360×6224 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-360-orig.jpg" alt="Original grapheneos 360"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-360-vue.jpg" alt="Vue grapheneos 360"></figure>
@@ -381,7 +381,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
 <nav class="toc"><a href="#home-1280-en">home-1280-en</a><a href="#home-768-en">home-768-en</a><a href="#home-390-en">home-390-en</a><a href="#home-360-en">home-360-en</a><a href="#grapheneos-1280-en">grapheneos-1280-en</a><a href="#grapheneos-768-en">grapheneos-768-en</a><a href="#grapheneos-390-en">grapheneos-390-en</a><a href="#grapheneos-360-en">grapheneos-360-en</a><a href="#cripto-1280-en">cripto-1280-en</a><a href="#cripto-768-en">cripto-768-en</a><a href="#cripto-390-en">cripto-390-en</a><a href="#cripto-360-en">cripto-360-en</a><a href="#compra-1280-en">compra-1280-en</a><a href="#compra-768-en">compra-768-en</a><a href="#compra-390-en">compra-390-en</a><a href="#compra-360-en">compra-360-en</a><a href="#pago-cripto-1280-en">pago-cripto-1280-en</a><a href="#pago-cripto-768-en">pago-cripto-768-en</a><a href="#pago-cripto-390-en">pago-cripto-390-en</a><a href="#pago-cripto-360-en">pago-cripto-360-en</a><a href="#pago-tarjeta-1280-en">pago-tarjeta-1280-en</a><a href="#pago-tarjeta-768-en">pago-tarjeta-768-en</a><a href="#pago-tarjeta-390-en">pago-tarjeta-390-en</a><a href="#pago-tarjeta-360-en">pago-tarjeta-360-en</a></nav>
 
     <section class="pair" id="home-1280-en">
-      <header><h3>home · 1280 px · EN</h3><span class="pill aa">0,001 %</span><small>1280×6830 / 1280×6830 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 1280 px · EN</h3><span class="pill aa">0,005 %</span><small>1280×6830 / 1280×6830 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-1280-en-orig.jpg" alt="Original home 1280"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-1280-en-vue.jpg" alt="Vue home 1280"></figure>
@@ -389,7 +389,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-768-en">
-      <header><h3>home · 768 px · EN</h3><span class="pill aa">0,004 %</span><small>768×9474 / 768×9474 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 768 px · EN</h3><span class="pill aa">0,009 %</span><small>768×9474 / 768×9474 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-768-en-orig.jpg" alt="Original home 768"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-768-en-vue.jpg" alt="Vue home 768"></figure>
@@ -397,7 +397,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-390-en">
-      <header><h3>home · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×10745 / 390×10745 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 390 px · EN</h3><span class="pill aa">0,008 %</span><small>390×10745 / 390×10745 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-390-en-orig.jpg" alt="Original home 390"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-390-en-vue.jpg" alt="Vue home 390"></figure>
@@ -405,7 +405,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="home-360-en">
-      <header><h3>home · 360 px · EN</h3><span class="pill aa">0,001 %</span><small>360×10995 / 360×10995 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>home · 360 px · EN</h3><span class="pill aa">0,009 %</span><small>360×10995 / 360×10995 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-360-en-orig.jpg" alt="Original home 360"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-360-en-vue.jpg" alt="Vue home 360"></figure>
@@ -413,7 +413,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-1280-en">
-      <header><h3>grapheneos · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 1280 px · EN</h3><span class="pill aa">0,001 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-1280-en-orig.jpg" alt="Original grapheneos 1280"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-1280-en-vue.jpg" alt="Vue grapheneos 1280"></figure>
@@ -421,7 +421,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-768-en">
-      <header><h3>grapheneos · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×6381 / 768×6381 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 768 px · EN</h3><span class="pill aa">0,002 %</span><small>768×6381 / 768×6381 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-768-en-orig.jpg" alt="Original grapheneos 768"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-768-en-vue.jpg" alt="Vue grapheneos 768"></figure>
@@ -429,7 +429,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-390-en">
-      <header><h3>grapheneos · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×6342 / 390×6342 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 390 px · EN</h3><span class="pill aa">0,003 %</span><small>390×6342 / 390×6342 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-390-en-orig.jpg" alt="Original grapheneos 390"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-390-en-vue.jpg" alt="Vue grapheneos 390"></figure>
@@ -437,7 +437,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
       </div>
     </section>
     <section class="pair" id="grapheneos-360-en">
-      <header><h3>grapheneos · 360 px · EN</h3><span class="pill aa">0,001 %</span><small>360×6290 / 360×6290 · desborde 0px · errores de consola 0</small></header>
+      <header><h3>grapheneos · 360 px · EN</h3><span class="pill aa">0,004 %</span><small>360×6290 / 360×6290 · desborde 0px · errores de consola 0</small></header>
       <div class="cols three">
         <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-360-en-orig.jpg" alt="Original grapheneos 360"></figure>
         <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-360-en-vue.jpg" alt="Vue grapheneos 360"></figure>

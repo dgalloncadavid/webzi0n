@@ -159,4 +159,5 @@ export default {
   "Zi0n, inicio": "Zi0n, home",
   "App de Zi0n en un Samsung: suscripción, eSIM, app señuelo y preferencias de seguridad": "Zi0n app on a Samsung: subscription, eSIM, decoy app and security preferences",
   "Capa oculta de Zi0n con apps de wallets, mensajería y precios del mercado": "Zi0n hidden layer with wallet apps, messaging and market prices",
+  "Más perfiles": "More profiles"
 }

@@ -1,0 +1,6 @@
+/* Inicio · reglas de página (antes de las secciones en la cascada) */
+.pg-home .m-only{display:none!important}
+@media (max-width:640px){
+  .pg-home .d-only{display:none!important}
+  .pg-home .m-only{display:revert!important}
+}

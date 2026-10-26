@@ -1,0 +1,28 @@
+# dependencias
+node_modules/
+
+# build de Vite
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# editor y sistema
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.sw?
+
+# QA: capturas intermedias pesadas (el reporte final sí se versiona)
+qa/.tmp/
+test-results/
+playwright-report/

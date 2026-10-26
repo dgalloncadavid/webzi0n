@@ -1,0 +1,38 @@
+/* ==========================================================
+   GrapheneOS · lienzo de la página
+   El diseño vive en un lienzo de 1280 px que se escala con zoom
+   en escritorio (--z lo calcula la página). Bajo 1024 px se
+   convierte en una columna fluida con estas reglas genéricas.
+   Todas llevan el prefijo .pg-graphene.
+   ========================================================== */
+.pg-graphene{--T:6s}
+.pg-graphene .sec{position:relative;background:var(--color-ink);overflow:hidden}
+.pg-graphene .frame{position:relative;width:1280px;margin:0 auto;zoom:var(--z)}
+.pg-graphene .abs{position:absolute}
+.pg-graphene .dec{position:absolute;inset:0;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 140px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 140px),transparent)}
+.pg-graphene .glow{position:absolute;border-radius:var(--radius-round);background:radial-gradient(closest-side,rgba(var(--rgb),var(--a)),rgba(var(--rgb),calc(var(--a)*.35)) 55%,rgba(var(--rgb),0))}
+.pg-graphene .ring{position:absolute;border-radius:var(--radius-round);border:1px solid rgba(var(--rgb-ice),var(--a,.12))}
+
+/* burbujas con ícono que flotan */
+.pg-graphene .ob{position:absolute;width:84px;height:84px;display:grid;place-items:center;border-radius:var(--radius-round);background:var(--color-ink);border:1.5px solid rgb(var(--rgb));box-shadow:0 0 28px rgba(var(--rgb),.55);animation:zn-g-floaty 7s var(--zn-ease-in-out) var(--fd,0s) infinite}
+.pg-graphene .ob .ico{width:40px;height:40px;color:rgb(var(--rgb))}
+@keyframes zn-g-floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.pg-graphene .hvbox,.pg-graphene .obox{display:contents}
+
+@media (max-width:1023px){
+  .pg-graphene .frame{zoom:1!important;width:auto!important}
+  .pg-graphene .dec{display:none}
+
+  /* estructura genérica de sección */
+  .pg-graphene .sec:not(.nav):not(.hero):not(.footer)>.frame{height:auto!important;padding:72px var(--pad);display:flex;flex-direction:column}
+  .pg-graphene .sec:not(.nav):not(.hero):not(.footer)>.frame>*{position:relative!important;left:auto!important;top:auto!important;right:auto!important;width:auto!important;max-width:100%}
+  .pg-graphene .sec>.frame>.h2{margin-bottom:28px}
+
+  /* 02: caja de la órbita, escalada con --os */
+  .pg-graphene .sec:not(.nav):not(.hero):not(.footer)>.frame>.obox{display:block;width:calc(560px * var(--os,1))!important;height:calc(550px * var(--os,1));align-self:center;margin-top:24px;flex:none}
+}
+@media (max-width:1023px){
+  .pg-graphene .sec:not(.nav):not(.hero):not(.footer)>.frame{padding-top:56px;padding-bottom:56px}
+  .pg-graphene .sec:not(.nav):not(.hero):not(.footer)>.frame>.obox{margin-top:8px;margin-bottom:-8px}
+}

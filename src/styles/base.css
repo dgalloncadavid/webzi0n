@@ -1,0 +1,72 @@
+/* ==========================================================
+   Zi0n · base global
+   Reset común a las cuatro hojas originales, roles tipográficos
+   (leen los tokens de la superficie activa), tonos, íconos,
+   revelado al hacer scroll y movimiento reducido.
+   ========================================================== */
+
+/* ---------- reset ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;background:var(--color-ink)}
+body{margin:0;background:var(--color-ink);color:var(--color-mist);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3,dl,dd,ol,ul{margin:0}
+ol,ul{padding:0;list-style:none}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--color-signal);outline-offset:3px}
+
+/* El router marca la superficie de la página en <html data-surface>.
+   Las landings tienen scroll suave y ocultan el desborde horizontal; el checkout no. */
+html[data-surface="landing"],html[data-surface="graphene"]{scroll-behavior:smooth}
+html[data-surface="landing"] body,html[data-surface="graphene"] body{overflow-x:hidden}
+html.menu-open body{overflow:hidden}
+
+/* ---------- íconos ---------- */
+.ico{display:inline-flex;align-items:center;justify-content:center}
+.ico svg,.ic{width:100%;height:100%;display:block}
+.ic{stroke-width:var(--icon-stroke,1.5)}
+.surface-checkout{--icon-stroke:1.6}
+.surface-checkout .ico{flex:none}
+
+/* ---------- tonos: --rgb alimenta rgba(var(--rgb),a) en los componentes ---------- */
+.c-sig,.c-sig2{--rgb:var(--rgb-signal)}
+.c-aur,.c-aur2{--rgb:var(--rgb-aurora)}
+.c-alt,.c-alert{--rgb:var(--rgb-alert)}
+.c-ice,.c-ice2{--rgb:var(--rgb-ice)}
+
+/* ---------- roles tipográficos (valores en .surface-*) ---------- */
+.h-display{font:var(--type-display-weight) var(--type-display-size)/var(--type-display-line) var(--type-display-family);letter-spacing:var(--type-display-track);color:var(--type-display-color)}
+.h1{font:var(--type-h1-weight) var(--type-h1-size)/var(--type-h1-line) var(--type-h1-family);letter-spacing:var(--type-h1-track);color:var(--type-h1-color)}
+.h2{font:var(--type-h2-weight) var(--type-h2-size)/var(--type-h2-line) var(--type-h2-family);letter-spacing:var(--type-h2-track);color:var(--type-h2-color)}
+.h3{font:var(--type-h3-weight) var(--type-h3-size)/var(--type-h3-line) var(--type-h3-family);letter-spacing:var(--type-h3-track);color:var(--type-h3-color)}
+.h4{font:var(--type-h4-weight) var(--type-h4-size)/var(--type-h4-line) var(--type-h4-family);letter-spacing:var(--type-h4-track);color:var(--type-h4-color)}
+.h5{font:var(--type-h5-weight) var(--type-h5-size)/var(--type-h5-line) var(--type-h5-family);letter-spacing:var(--type-h5-track);color:var(--type-h5-color)}
+.body{font:var(--type-body-weight) var(--type-body-size)/var(--type-body-line) var(--type-body-family);letter-spacing:var(--type-body-track);color:var(--type-body-color)}
+.body-lg{font:var(--type-body-lg-weight) var(--type-body-lg-size)/var(--type-body-lg-line) var(--type-body-lg-family);letter-spacing:var(--type-body-lg-track);color:var(--type-body-lg-color)}
+.small{font:var(--type-small-weight) var(--type-small-size)/var(--type-small-line) var(--type-small-family);letter-spacing:var(--type-small-track);color:var(--type-small-color)}
+.caption{font:var(--type-caption-weight) var(--type-caption-size)/var(--type-caption-line) var(--type-caption-family);letter-spacing:var(--type-caption-track);color:var(--type-caption-color)}
+.mono{font:var(--type-mono-weight) var(--type-mono-size)/var(--type-mono-line) var(--type-mono-family);letter-spacing:var(--type-mono-track);color:var(--type-mono-color)}
+.eyebrow{font:var(--type-eyebrow-weight) var(--type-eyebrow-size)/var(--type-eyebrow-line) var(--type-eyebrow-family);letter-spacing:var(--type-eyebrow-track);text-transform:uppercase;color:var(--type-eyebrow-color)}
+.semi{font:var(--type-semi-weight) var(--type-semi-size)/var(--type-semi-line) var(--type-semi-family);letter-spacing:var(--type-semi-track);color:var(--type-semi-color)}
+.kicker{font:var(--type-kicker-weight) var(--type-kicker-size)/var(--type-kicker-line) var(--type-kicker-family);letter-spacing:var(--type-kicker-track);text-transform:uppercase;color:var(--type-kicker-color)}
+.lead{font:var(--type-lead-weight) var(--type-lead-size)/var(--type-lead-line) var(--type-lead-family);letter-spacing:var(--type-lead-track);color:var(--type-lead-color)}
+.lead.sm{font-size:var(--type-lead-sm-size);line-height:var(--type-lead-sm-line)}
+.muted{color:var(--color-muted)}
+/* el original equilibra títulos por elemento en las landings y por clase en el checkout */
+.surface-landing :is(h1,h2,h3,.h4){text-wrap:balance}
+.surface-checkout .h2{text-wrap:balance}
+
+/* ---------- revelado al entrar en pantalla (directiva v-reveal) ----------
+   html.js da al revelado prioridad sobre las reglas de una clase de cada componente,
+   igual que en el original, donde .js .rv ganaba a .card, .pcard, .route... */
+html.js .rv{opacity:0;transform:translateY(18px);transition:opacity var(--dur-reveal) var(--ease) var(--d,0s),transform var(--dur-reveal) var(--ease) var(--d,0s)}
+html.js .rv.in{opacity:1;transform:none}
+
+/* ---------- movimiento reducido ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  html.js .rv{opacity:1;transform:none}
+}

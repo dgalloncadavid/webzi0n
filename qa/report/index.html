@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zi0n · reporte de QA</title>
+<style>
+:root{--ink:#0A0F2C;--navy:#172258;--ice:#B7D3E7;--mist:#F3F6FB;--muted:#8E97BF;--signal:#4DF0A4;--alert:#FF5C6C;--amber:#FFC46B;--line:rgba(183,211,231,.16)}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--mist);font:15px/1.5 Inter,system-ui,sans-serif}
+main{max-width:1600px;margin:0 auto;padding:40px 24px 80px}
+h1,h2,h3{font-family:'JetBrains Mono',ui-monospace,monospace;margin:0}
+h1{font-size:32px}h2{font-size:22px;margin:48px 0 16px}h3{font-size:15px}
+p{color:var(--ice);max-width:900px}code{font:12px ui-monospace,monospace;color:var(--ice)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:24px 0}
+.kpi{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03)}
+.kpi b{display:block;font:800 26px/1.2 'JetBrains Mono',monospace;color:var(--signal)}.kpi span{color:var(--muted);font-size:13px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font:600 12px/18px ui-monospace,monospace}
+.pill.ok{background:rgba(77,240,164,.16);color:var(--signal)}.pill.aa{background:rgba(255,196,107,.14);color:var(--amber)}.pill.warn{background:rgba(255,92,108,.16);color:var(--alert)}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500}
+a{color:var(--signal)}
+.pair{border-top:1px solid var(--line);padding:24px 0}
+.pair header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px}.pair small{color:var(--muted)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.cols.three{grid-template-columns:1fr 1fr 1fr}
+figure{margin:0}figcaption{font:500 12px ui-monospace,monospace;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
+figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block;background:#000}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px}nav.toc a{font-size:12px}
+.fn td:nth-child(2){font-weight:600}
+@media (max-width:800px){.cols,.cols.three{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>Zi0n · reporte de QA</h1>
+<p>Comparación del sitio estático original con la versión Vue. Capturas de página completa en Chromium (Playwright) a 1280, 768, 390 y 360 px, con <code>prefers-reduced-motion: reduce</code> para que las animaciones en bucle no metan ruido; la página se recorre entera antes de capturar para disparar los revelados. La diferencia se mide con pixelmatch (umbral 0,1) sobre la captura completa.</p>
+<p>Generado: 2026-10-26 06:12 UTC.</p>
+<div class="kpis">
+  <div class="kpi"><b>0,003 %</b><span>máxima diferencia, 24 capturas en español</span></div>
+  <div class="kpi"><b>0,004 %</b><span>máxima diferencia, 24 capturas en inglés</span></div>
+  <div class="kpi"><b>0,003 %</b><span>máxima diferencia en 136 estados del flujo de compra</span></div>
+  <div class="kpi"><b>8/8</b><span>pruebas de comportamiento con resultado idéntico al original</span></div>
+  <div class="kpi"><b>0</b><span>errores de consola en la versión Vue</span></div>
+  <div class="kpi"><b>0</b><span>capturas con desborde horizontal</span></div>
+</div>
+<p>Las diferencias menores a 0,01 % (ámbar) son antialiasing de bordes con <code>backdrop-filter</code> y de texto: no cambian ningún elemento.</p>
+
+<h2>Pruebas de comportamiento</h2>
+<table class="fn"><thead><tr><th>Prueba</th><th>Resultado</th><th>Qué verifica</th></tr></thead><tbody>
+<tr><td><code>idioma</code></td><td><span class="pill ok">igual</span></td><td>Cambio ES/EN en las 6 páginas: título, h1, meta description, html[lang], aria-pressed y localStorage zion-lang</td></tr><tr><td><code>persistencia</code></td><td><span class="pill ok">igual</span></td><td>El idioma se conserva entre páginas y ?lang= lo fuerza</td></tr><tr><td><code>navegacion</code></td><td><span class="pill ok">igual</span></td><td>Enlaces entre páginas, logo, tarjetas de ruta, atajo a compra, "Aún tengo dudas" con ancla #faq y botón atrás</td></tr><tr><td><code>menu</code></td><td><span class="pill ok">igual</span></td><td>Menú móvil: abre, bloquea el scroll, Escape cierra, un enlace cierra y lleva al ancla (3 landings)</td></tr><tr><td><code>desborde</code></td><td><span class="pill ok">igual</span></td><td>Sin scroll horizontal en 1280, 1024, 768, 390, 360 y 320 px (6 páginas)</td></tr><tr><td><code>comparador</code></td><td><span class="pill ok">igual</span></td><td>Comparador de capas con teclado: flechas, Inicio y Fin, aria-valuenow y recorte</td></tr><tr><td><code>faq</code></td><td><span class="pill ok">igual</span></td><td>Una pregunta abierta a la vez (3 landings, incluido el FAQ de dos columnas)</td></tr><tr><td><code>checkout</code></td><td><span class="pill ok">igual</span></td><td>Enlace profundo sin datos, ?done=1 sin correo, tienda en restauración, avisos, correo inválido, atrás y adelante entre pasos, resumen, stepper, sessionStorage, URL sin datos personales, Luhn, máscara Amex, vencimiento y foco en el primer error</td></tr>
+</tbody></table>
+
+<h2>Flujo de compra (1280 y 390 px)</h2>
+<p>Prueba gratis con tienda y sugerencia de correo; activación con plan preseleccionado desde el inicio hasta pagar con tarjeta; renovación pagando con stablecoins. Las mismas acciones en ambos sitios.</p>
+<table><thead><tr><th>Escenario</th><th>Ancho</th><th>Estado</th><th>Diferencia</th><th>URL (Vue)</th><th>Capturas</th></tr></thead><tbody>
+    <tr><td>prueba</td><td>1280</td><td>1-inicio</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-1280-1-inicio-orig.jpg">original</a> · <a href="img/flow-prueba-1280-1-inicio-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>2-sin-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-1280-2-sin-ack-orig.jpg">original</a> · <a href="img/flow-prueba-1280-2-sin-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>3-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-1280-3-ack-orig.jpg">original</a> · <a href="img/flow-prueba-1280-3-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>4-tiendas</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-1280-4-tiendas-orig.jpg">original</a> · <a href="img/flow-prueba-1280-4-tiendas-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>5-modal</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-1280-5-modal-orig.jpg">original</a> · <a href="img/flow-prueba-1280-5-modal-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>6-elegida</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-1280-6-elegida-orig.jpg">original</a> · <a href="img/flow-prueba-1280-6-elegida-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>7-plan-prueba</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-1280-7-plan-prueba-orig.jpg">original</a> · <a href="img/flow-prueba-1280-7-plan-prueba-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>8-correo-typo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-1280-8-correo-typo-orig.jpg">original</a> · <a href="img/flow-prueba-1280-8-correo-typo-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>9-correo-blur</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-1280-9-correo-blur-orig.jpg">original</a> · <a href="img/flow-prueba-1280-9-correo-blur-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>10-sugerencia</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-1280-10-sugerencia-orig.jpg">original</a> · <a href="img/flow-prueba-1280-10-sugerencia-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>11-confirma</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-4</code></td>
+    <td><a href="img/flow-prueba-1280-11-confirma-orig.jpg">original</a> · <a href="img/flow-prueba-1280-11-confirma-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>12-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
+    <td><a href="img/flow-prueba-1280-12-listo-orig.jpg">original</a> · <a href="img/flow-prueba-1280-12-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>1280</td><td>13-listo-en</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
+    <td><a href="img/flow-prueba-1280-13-listo-en-orig.jpg">original</a> · <a href="img/flow-prueba-1280-13-listo-en-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>1-home</td><td><span class="pill aa">0,002 %</span></td><td><code>/</code></td>
+    <td><a href="img/flow-tarjeta-1280-1-home-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-1-home-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>2-plan90</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
+    <td><a href="img/flow-tarjeta-1280-2-plan90-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-2-plan90-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>3-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
+    <td><a href="img/flow-tarjeta-1280-3-ack-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-3-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>4-paso3</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-3</code></td>
+    <td><a href="img/flow-tarjeta-1280-4-paso3-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-4-paso3-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>5-correo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-3</code></td>
+    <td><a href="img/flow-tarjeta-1280-5-correo-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-5-correo-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>6-paso4</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-4</code></td>
+    <td><a href="img/flow-tarjeta-1280-6-paso4-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-6-paso4-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>7-tarjeta</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-4</code></td>
+    <td><a href="img/flow-tarjeta-1280-7-tarjeta-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-7-tarjeta-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>8-pago</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-1280-8-pago-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-8-pago-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>9-errores</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-1280-9-errores-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-9-errores-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>10-datos</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-1280-10-datos-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-10-datos-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>1280</td><td>11-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?done=1#listo</code></td>
+    <td><a href="img/flow-tarjeta-1280-11-listo-orig.jpg">original</a> · <a href="img/flow-tarjeta-1280-11-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>1-renovacion</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-1</code></td>
+    <td><a href="img/flow-cripto-1280-1-renovacion-orig.jpg">original</a> · <a href="img/flow-cripto-1280-1-renovacion-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>2-paso3</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-3</code></td>
+    <td><a href="img/flow-cripto-1280-2-paso3-orig.jpg">original</a> · <a href="img/flow-cripto-1280-2-paso3-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>3-paso4</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-4</code></td>
+    <td><a href="img/flow-cripto-1280-3-paso4-orig.jpg">original</a> · <a href="img/flow-cripto-1280-3-paso4-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>4-cripto</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-4</code></td>
+    <td><a href="img/flow-cripto-1280-4-cripto-orig.jpg">original</a> · <a href="img/flow-cripto-1280-4-cripto-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>5-pago</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-1280-5-pago-orig.jpg">original</a> · <a href="img/flow-cripto-1280-5-pago-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>6-usdc</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-1280-6-usdc-orig.jpg">original</a> · <a href="img/flow-cripto-1280-6-usdc-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>7-ethereum</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-1280-7-ethereum-orig.jpg">original</a> · <a href="img/flow-cripto-1280-7-ethereum-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>8-verificando</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-1280-8-verificando-orig.jpg">original</a> · <a href="img/flow-cripto-1280-8-verificando-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>9-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?done=1#listo</code></td>
+    <td><a href="img/flow-cripto-1280-9-listo-orig.jpg">original</a> · <a href="img/flow-cripto-1280-9-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>1280</td><td>10-atras</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-1280-10-atras-orig.jpg">original</a> · <a href="img/flow-cripto-1280-10-atras-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>1-inicio</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-390-1-inicio-orig.jpg">original</a> · <a href="img/flow-prueba-390-1-inicio-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>2-sin-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-390-2-sin-ack-orig.jpg">original</a> · <a href="img/flow-prueba-390-2-sin-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>3-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-1</code></td>
+    <td><a href="img/flow-prueba-390-3-ack-orig.jpg">original</a> · <a href="img/flow-prueba-390-3-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>4-tiendas</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-390-4-tiendas-orig.jpg">original</a> · <a href="img/flow-prueba-390-4-tiendas-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>5-modal</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-390-5-modal-orig.jpg">original</a> · <a href="img/flow-prueba-390-5-modal-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>6-elegida</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-2</code></td>
+    <td><a href="img/flow-prueba-390-6-elegida-orig.jpg">original</a> · <a href="img/flow-prueba-390-6-elegida-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>7-plan-prueba</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-390-7-plan-prueba-orig.jpg">original</a> · <a href="img/flow-prueba-390-7-plan-prueba-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>8-correo-typo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-390-8-correo-typo-orig.jpg">original</a> · <a href="img/flow-prueba-390-8-correo-typo-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>9-correo-blur</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-390-9-correo-blur-orig.jpg">original</a> · <a href="img/flow-prueba-390-9-correo-blur-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>10-sugerencia</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-3</code></td>
+    <td><a href="img/flow-prueba-390-10-sugerencia-orig.jpg">original</a> · <a href="img/flow-prueba-390-10-sugerencia-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>11-confirma</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#paso-4</code></td>
+    <td><a href="img/flow-prueba-390-11-confirma-orig.jpg">original</a> · <a href="img/flow-prueba-390-11-confirma-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>12-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
+    <td><a href="img/flow-prueba-390-12-listo-orig.jpg">original</a> · <a href="img/flow-prueba-390-12-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>prueba</td><td>390</td><td>13-listo-en</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=prueba#listo</code></td>
+    <td><a href="img/flow-prueba-390-13-listo-en-orig.jpg">original</a> · <a href="img/flow-prueba-390-13-listo-en-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>1-home</td><td><span class="pill ok">0 %</span></td><td><code>/</code></td>
+    <td><a href="img/flow-tarjeta-390-1-home-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-1-home-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>2-plan90</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
+    <td><a href="img/flow-tarjeta-390-2-plan90-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-2-plan90-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>3-ack</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-1</code></td>
+    <td><a href="img/flow-tarjeta-390-3-ack-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-3-ack-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>4-paso3</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-3</code></td>
+    <td><a href="img/flow-tarjeta-390-4-paso3-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-4-paso3-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>5-correo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-3</code></td>
+    <td><a href="img/flow-tarjeta-390-5-correo-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-5-correo-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>6-paso4</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-4</code></td>
+    <td><a href="img/flow-tarjeta-390-6-paso4-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-6-paso4-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>7-tarjeta</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=activacion&plan=90#paso-4</code></td>
+    <td><a href="img/flow-tarjeta-390-7-tarjeta-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-7-tarjeta-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>8-pago</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-390-8-pago-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-8-pago-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>9-errores</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-390-9-errores-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-9-errores-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>10-datos</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-tarjeta</code></td>
+    <td><a href="img/flow-tarjeta-390-10-datos-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-10-datos-vue.jpg">vue</a></td></tr>
+    <tr><td>tarjeta</td><td>390</td><td>11-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?done=1#listo</code></td>
+    <td><a href="img/flow-tarjeta-390-11-listo-orig.jpg">original</a> · <a href="img/flow-tarjeta-390-11-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>1-renovacion</td><td><span class="pill aa">0,001 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-1</code></td>
+    <td><a href="img/flow-cripto-390-1-renovacion-orig.jpg">original</a> · <a href="img/flow-cripto-390-1-renovacion-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>2-paso3</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-3</code></td>
+    <td><a href="img/flow-cripto-390-2-paso3-orig.jpg">original</a> · <a href="img/flow-cripto-390-2-paso3-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>3-paso4</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-4</code></td>
+    <td><a href="img/flow-cripto-390-3-paso4-orig.jpg">original</a> · <a href="img/flow-cripto-390-3-paso4-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>4-cripto</td><td><span class="pill ok">0 %</span></td><td><code>/compra?tipo=renovacion&plan=180#paso-4</code></td>
+    <td><a href="img/flow-cripto-390-4-cripto-orig.jpg">original</a> · <a href="img/flow-cripto-390-4-cripto-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>5-pago</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-390-5-pago-orig.jpg">original</a> · <a href="img/flow-cripto-390-5-pago-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>6-usdc</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-390-6-usdc-orig.jpg">original</a> · <a href="img/flow-cripto-390-6-usdc-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>7-ethereum</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-390-7-ethereum-orig.jpg">original</a> · <a href="img/flow-cripto-390-7-ethereum-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>8-verificando</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-390-8-verificando-orig.jpg">original</a> · <a href="img/flow-cripto-390-8-verificando-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>9-listo</td><td><span class="pill ok">0 %</span></td><td><code>/compra?done=1#listo</code></td>
+    <td><a href="img/flow-cripto-390-9-listo-orig.jpg">original</a> · <a href="img/flow-cripto-390-9-listo-vue.jpg">vue</a></td></tr>
+    <tr><td>cripto</td><td>390</td><td>10-atras</td><td><span class="pill ok">0 %</span></td><td><code>/compra/pago-cripto</code></td>
+    <td><a href="img/flow-cripto-390-10-atras-orig.jpg">original</a> · <a href="img/flow-cripto-390-10-atras-vue.jpg">vue</a></td></tr></tbody></table>
+
+<h2>Páginas en español</h2>
+<nav class="toc"><a href="#home-1280">home-1280</a><a href="#home-768">home-768</a><a href="#home-390">home-390</a><a href="#home-360">home-360</a><a href="#grapheneos-1280">grapheneos-1280</a><a href="#grapheneos-768">grapheneos-768</a><a href="#grapheneos-390">grapheneos-390</a><a href="#grapheneos-360">grapheneos-360</a><a href="#cripto-1280">cripto-1280</a><a href="#cripto-768">cripto-768</a><a href="#cripto-390">cripto-390</a><a href="#cripto-360">cripto-360</a><a href="#compra-1280">compra-1280</a><a href="#compra-768">compra-768</a><a href="#compra-390">compra-390</a><a href="#compra-360">compra-360</a><a href="#pago-cripto-1280">pago-cripto-1280</a><a href="#pago-cripto-768">pago-cripto-768</a><a href="#pago-cripto-390">pago-cripto-390</a><a href="#pago-cripto-360">pago-cripto-360</a><a href="#pago-tarjeta-1280">pago-tarjeta-1280</a><a href="#pago-tarjeta-768">pago-tarjeta-768</a><a href="#pago-tarjeta-390">pago-tarjeta-390</a><a href="#pago-tarjeta-360">pago-tarjeta-360</a></nav>
+
+    <section class="pair" id="home-1280">
+      <header><h3>home · 1280 px </h3><span class="pill aa">0,002 %</span><small>1280×6818 / 1280×6818 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-1280-orig.jpg" alt="Original home 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-1280-vue.jpg" alt="Vue home 1280"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-1280-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-768">
+      <header><h3>home · 768 px </h3><span class="pill aa">0,003 %</span><small>768×9614 / 768×9614 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-768-orig.jpg" alt="Original home 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-768-vue.jpg" alt="Vue home 768"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-768-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-390">
+      <header><h3>home · 390 px </h3><span class="pill ok">0 %</span><small>390×10795 / 390×10795 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-390-orig.jpg" alt="Original home 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-390-vue.jpg" alt="Vue home 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-390-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-360">
+      <header><h3>home · 360 px </h3><span class="pill aa">0,001 %</span><small>360×11049 / 360×11049 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-360-orig.jpg" alt="Original home 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-360-vue.jpg" alt="Vue home 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-360-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-1280">
+      <header><h3>grapheneos · 1280 px </h3><span class="pill ok">0 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-1280-orig.jpg" alt="Original grapheneos 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-1280-vue.jpg" alt="Vue grapheneos 1280"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-1280-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-768">
+      <header><h3>grapheneos · 768 px </h3><span class="pill ok">0 %</span><small>768×6355 / 768×6355 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-768-orig.jpg" alt="Original grapheneos 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-768-vue.jpg" alt="Vue grapheneos 768"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-768-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-390">
+      <header><h3>grapheneos · 390 px </h3><span class="pill ok">0 %</span><small>390×6284 / 390×6284 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-390-orig.jpg" alt="Original grapheneos 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-390-vue.jpg" alt="Vue grapheneos 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-390-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-360">
+      <header><h3>grapheneos · 360 px </h3><span class="pill aa">0,001 %</span><small>360×6224 / 360×6224 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-360-orig.jpg" alt="Original grapheneos 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-360-vue.jpg" alt="Vue grapheneos 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-360-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-1280">
+      <header><h3>cripto · 1280 px </h3><span class="pill ok">0 %</span><small>1280×6989 / 1280×6989 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-1280-orig.jpg" alt="Original cripto 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-1280-vue.jpg" alt="Vue cripto 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="cripto-768">
+      <header><h3>cripto · 768 px </h3><span class="pill ok">0 %</span><small>768×10294 / 768×10294 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-768-orig.jpg" alt="Original cripto 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-768-vue.jpg" alt="Vue cripto 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="cripto-390">
+      <header><h3>cripto · 390 px </h3><span class="pill aa">0,003 %</span><small>390×9835 / 390×9835 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-390-orig.jpg" alt="Original cripto 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-390-vue.jpg" alt="Vue cripto 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-390-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-360">
+      <header><h3>cripto · 360 px </h3><span class="pill aa">0,002 %</span><small>360×9914 / 360×9914 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-360-orig.jpg" alt="Original cripto 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-360-vue.jpg" alt="Vue cripto 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-360-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="compra-1280">
+      <header><h3>compra · 1280 px </h3><span class="pill ok">0 %</span><small>1280×1030 / 1280×1030 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-1280-orig.jpg" alt="Original compra 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-1280-vue.jpg" alt="Vue compra 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-768">
+      <header><h3>compra · 768 px </h3><span class="pill ok">0 %</span><small>768×1098 / 768×1098 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-768-orig.jpg" alt="Original compra 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-768-vue.jpg" alt="Vue compra 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-390">
+      <header><h3>compra · 390 px </h3><span class="pill ok">0 %</span><small>390×1221 / 390×1221 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-390-orig.jpg" alt="Original compra 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-390-vue.jpg" alt="Vue compra 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-360">
+      <header><h3>compra · 360 px </h3><span class="pill ok">0 %</span><small>360×1279 / 360×1279 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-360-orig.jpg" alt="Original compra 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-360-vue.jpg" alt="Vue compra 360"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-1280">
+      <header><h3>pago-cripto · 1280 px </h3><span class="pill ok">0 %</span><small>1280×1068 / 1280×1068 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-1280-orig.jpg" alt="Original pago-cripto 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-1280-vue.jpg" alt="Vue pago-cripto 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-768">
+      <header><h3>pago-cripto · 768 px </h3><span class="pill ok">0 %</span><small>768×1136 / 768×1136 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-768-orig.jpg" alt="Original pago-cripto 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-768-vue.jpg" alt="Vue pago-cripto 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-390">
+      <header><h3>pago-cripto · 390 px </h3><span class="pill ok">0 %</span><small>390×1535 / 390×1535 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-390-orig.jpg" alt="Original pago-cripto 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-390-vue.jpg" alt="Vue pago-cripto 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-360">
+      <header><h3>pago-cripto · 360 px </h3><span class="pill ok">0 %</span><small>360×1573 / 360×1573 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-360-orig.jpg" alt="Original pago-cripto 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-360-vue.jpg" alt="Vue pago-cripto 360"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-1280">
+      <header><h3>pago-tarjeta · 1280 px </h3><span class="pill ok">0 %</span><small>1280×1046 / 1280×1046 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-1280-orig.jpg" alt="Original pago-tarjeta 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-1280-vue.jpg" alt="Vue pago-tarjeta 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-768">
+      <header><h3>pago-tarjeta · 768 px </h3><span class="pill ok">0 %</span><small>768×1114 / 768×1114 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-768-orig.jpg" alt="Original pago-tarjeta 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-768-vue.jpg" alt="Vue pago-tarjeta 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-390">
+      <header><h3>pago-tarjeta · 390 px </h3><span class="pill ok">0 %</span><small>390×1228 / 390×1228 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-390-orig.jpg" alt="Original pago-tarjeta 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-390-vue.jpg" alt="Vue pago-tarjeta 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-360">
+      <header><h3>pago-tarjeta · 360 px </h3><span class="pill ok">0 %</span><small>360×1266 / 360×1266 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-360-orig.jpg" alt="Original pago-tarjeta 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-360-vue.jpg" alt="Vue pago-tarjeta 360"></figure>
+        
+      </div>
+    </section>
+<h2>Páginas en inglés (?lang=en)</h2>
+<nav class="toc"><a href="#home-1280-en">home-1280-en</a><a href="#home-768-en">home-768-en</a><a href="#home-390-en">home-390-en</a><a href="#home-360-en">home-360-en</a><a href="#grapheneos-1280-en">grapheneos-1280-en</a><a href="#grapheneos-768-en">grapheneos-768-en</a><a href="#grapheneos-390-en">grapheneos-390-en</a><a href="#grapheneos-360-en">grapheneos-360-en</a><a href="#cripto-1280-en">cripto-1280-en</a><a href="#cripto-768-en">cripto-768-en</a><a href="#cripto-390-en">cripto-390-en</a><a href="#cripto-360-en">cripto-360-en</a><a href="#compra-1280-en">compra-1280-en</a><a href="#compra-768-en">compra-768-en</a><a href="#compra-390-en">compra-390-en</a><a href="#compra-360-en">compra-360-en</a><a href="#pago-cripto-1280-en">pago-cripto-1280-en</a><a href="#pago-cripto-768-en">pago-cripto-768-en</a><a href="#pago-cripto-390-en">pago-cripto-390-en</a><a href="#pago-cripto-360-en">pago-cripto-360-en</a><a href="#pago-tarjeta-1280-en">pago-tarjeta-1280-en</a><a href="#pago-tarjeta-768-en">pago-tarjeta-768-en</a><a href="#pago-tarjeta-390-en">pago-tarjeta-390-en</a><a href="#pago-tarjeta-360-en">pago-tarjeta-360-en</a></nav>
+
+    <section class="pair" id="home-1280-en">
+      <header><h3>home · 1280 px · EN</h3><span class="pill aa">0,001 %</span><small>1280×6830 / 1280×6830 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-1280-en-orig.jpg" alt="Original home 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-1280-en-vue.jpg" alt="Vue home 1280"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-1280-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-768-en">
+      <header><h3>home · 768 px · EN</h3><span class="pill aa">0,004 %</span><small>768×9474 / 768×9474 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-768-en-orig.jpg" alt="Original home 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-768-en-vue.jpg" alt="Vue home 768"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-768-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-390-en">
+      <header><h3>home · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×10745 / 390×10745 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-390-en-orig.jpg" alt="Original home 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-390-en-vue.jpg" alt="Vue home 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-390-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="home-360-en">
+      <header><h3>home · 360 px · EN</h3><span class="pill aa">0,001 %</span><small>360×10995 / 360×10995 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/home-360-en-orig.jpg" alt="Original home 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/home-360-en-vue.jpg" alt="Vue home 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/home-360-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-1280-en">
+      <header><h3>grapheneos · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×6299 / 1280×6299 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-1280-en-orig.jpg" alt="Original grapheneos 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-1280-en-vue.jpg" alt="Vue grapheneos 1280"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-1280-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-768-en">
+      <header><h3>grapheneos · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×6381 / 768×6381 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-768-en-orig.jpg" alt="Original grapheneos 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-768-en-vue.jpg" alt="Vue grapheneos 768"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-768-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-390-en">
+      <header><h3>grapheneos · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×6342 / 390×6342 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-390-en-orig.jpg" alt="Original grapheneos 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-390-en-vue.jpg" alt="Vue grapheneos 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-390-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="grapheneos-360-en">
+      <header><h3>grapheneos · 360 px · EN</h3><span class="pill aa">0,001 %</span><small>360×6290 / 360×6290 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/grapheneos-360-en-orig.jpg" alt="Original grapheneos 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/grapheneos-360-en-vue.jpg" alt="Vue grapheneos 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/grapheneos-360-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-1280-en">
+      <header><h3>cripto · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×6901 / 1280×6901 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-1280-en-orig.jpg" alt="Original cripto 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-1280-en-vue.jpg" alt="Vue cripto 1280"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-1280-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-768-en">
+      <header><h3>cripto · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×10254 / 768×10254 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-768-en-orig.jpg" alt="Original cripto 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-768-en-vue.jpg" alt="Vue cripto 768"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-768-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-390-en">
+      <header><h3>cripto · 390 px · EN</h3><span class="pill aa">0,001 %</span><small>390×9701 / 390×9701 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-390-en-orig.jpg" alt="Original cripto 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-390-en-vue.jpg" alt="Vue cripto 390"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-390-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="cripto-360-en">
+      <header><h3>cripto · 360 px · EN</h3><span class="pill aa">0,002 %</span><small>360×9739 / 360×9739 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols three">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/cripto-360-en-orig.jpg" alt="Original cripto 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/cripto-360-en-vue.jpg" alt="Vue cripto 360"></figure>
+        <figure><figcaption>Diferencias (rojo)</figcaption><img loading="lazy" src="img/cripto-360-en-diff.jpg" alt="Diferencias"></figure>
+      </div>
+    </section>
+    <section class="pair" id="compra-1280-en">
+      <header><h3>compra · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×1011 / 1280×1011 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-1280-en-orig.jpg" alt="Original compra 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-1280-en-vue.jpg" alt="Vue compra 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-768-en">
+      <header><h3>compra · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×1079 / 768×1079 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-768-en-orig.jpg" alt="Original compra 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-768-en-vue.jpg" alt="Vue compra 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-390-en">
+      <header><h3>compra · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×1201 / 390×1201 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-390-en-orig.jpg" alt="Original compra 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-390-en-vue.jpg" alt="Vue compra 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="compra-360-en">
+      <header><h3>compra · 360 px · EN</h3><span class="pill ok">0 %</span><small>360×1252 / 360×1252 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/compra-360-en-orig.jpg" alt="Original compra 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/compra-360-en-vue.jpg" alt="Vue compra 360"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-1280-en">
+      <header><h3>pago-cripto · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×1088 / 1280×1088 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-1280-en-orig.jpg" alt="Original pago-cripto 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-1280-en-vue.jpg" alt="Vue pago-cripto 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-768-en">
+      <header><h3>pago-cripto · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×1156 / 768×1156 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-768-en-orig.jpg" alt="Original pago-cripto 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-768-en-vue.jpg" alt="Vue pago-cripto 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-390-en">
+      <header><h3>pago-cripto · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×1555 / 390×1555 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-390-en-orig.jpg" alt="Original pago-cripto 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-390-en-vue.jpg" alt="Vue pago-cripto 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-cripto-360-en">
+      <header><h3>pago-cripto · 360 px · EN</h3><span class="pill ok">0 %</span><small>360×1555 / 360×1555 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-cripto-360-en-orig.jpg" alt="Original pago-cripto 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-cripto-360-en-vue.jpg" alt="Vue pago-cripto 360"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-1280-en">
+      <header><h3>pago-tarjeta · 1280 px · EN</h3><span class="pill ok">0 %</span><small>1280×1046 / 1280×1046 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-1280-en-orig.jpg" alt="Original pago-tarjeta 1280"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-1280-en-vue.jpg" alt="Vue pago-tarjeta 1280"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-768-en">
+      <header><h3>pago-tarjeta · 768 px · EN</h3><span class="pill ok">0 %</span><small>768×1114 / 768×1114 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-768-en-orig.jpg" alt="Original pago-tarjeta 768"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-768-en-vue.jpg" alt="Vue pago-tarjeta 768"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-390-en">
+      <header><h3>pago-tarjeta · 390 px · EN</h3><span class="pill ok">0 %</span><small>390×1228 / 390×1228 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-390-en-orig.jpg" alt="Original pago-tarjeta 390"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-390-en-vue.jpg" alt="Vue pago-tarjeta 390"></figure>
+        
+      </div>
+    </section>
+    <section class="pair" id="pago-tarjeta-360-en">
+      <header><h3>pago-tarjeta · 360 px · EN</h3><span class="pill ok">0 %</span><small>360×1228 / 360×1228 · desborde 0px · errores de consola 0</small></header>
+      <div class="cols ">
+        <figure><figcaption>Original</figcaption><img loading="lazy" src="img/pago-tarjeta-360-en-orig.jpg" alt="Original pago-tarjeta 360"></figure>
+        <figure><figcaption>Vue</figcaption><img loading="lazy" src="img/pago-tarjeta-360-en-vue.jpg" alt="Vue pago-tarjeta 360"></figure>
+        
+      </div>
+    </section>
+</main></body></html>

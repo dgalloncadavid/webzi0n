@@ -1,0 +1,287 @@
+/* ==========================================================
+   Zi0n · tokens de diseño
+   ARCHIVO GENERADO por scripts/build-tokens.mjs desde
+   src/design-system/tokens.json. No editar a mano.
+   ========================================================== */
+
+/* ---------- primitivos ---------- */
+:root{
+  --zn-ink:#0A0F2C;
+  --zn-ink-rgb:10,15,44;
+  --zn-navy:#172258;
+  --zn-navy-rgb:23,34,88;
+  --zn-ice:#B7D3E7;
+  --zn-ice-rgb:183,211,231;
+  --zn-mist:#F3F6FB;
+  --zn-mist-rgb:243,246,251;
+  --zn-muted:#8E97BF;
+  --zn-muted-rgb:142,151,191;
+  --zn-signal:#4DF0A4;
+  --zn-signal-rgb:77,240,164;
+  --zn-aurora:#7B8CFF;
+  --zn-aurora-rgb:123,140,255;
+  --zn-alert:#FF5C6C;
+  --zn-alert-rgb:255,92,108;
+  --zn-amber:#FFC46B;
+  --zn-amber-rgb:255,196,107;
+  --zn-white:#FFFFFF;
+  --zn-white-rgb:255,255,255;
+  --zn-black:#000000;
+  --zn-black-rgb:0,0,0;
+  --zn-night:#06091C;
+  --zn-night-rgb:6,9,28;
+  --zn-navy-hover:#1F2D70;
+  --zn-navy-hover-graphene:#1E2C6E;
+  --zn-card-from:#1A2660;
+  --zn-card-to:#141D4D;
+  --zn-card-featured-from:#1C2A72;
+  --zn-layer-front:#151E4F;
+  --zn-device:#0E1640;
+  --zn-device-graphene:#0F1640;
+  --zn-split:#0F1535;
+  --zn-step-navy:#2A3780;
+  --zn-meter-from:#4A5AA8;
+  --zn-surface-checkout:#121A48;
+  --zn-surface-checkout-rgb:18,26,72;
+  --zn-surface-checkout-deep:#141C50;
+  --zn-panel-from:#18225A;
+  --zn-panel-from-rgb:24,34,90;
+  --zn-panel-to:#0E143A;
+  --zn-panel-to-rgb:14,20,58;
+  --zn-okmark:#0E1543;
+  --zn-okmark-rgb:14,21,67;
+  --zn-cardviz-from:#2A3AA0;
+  --zn-cardviz-to:#0E2A4A;
+  --zn-chip-gold-from:#E9D38B;
+  --zn-chip-gold-to:#B8944A;
+  --zn-light-text:#4A5490;
+  --zn-light-eyebrow:#6E77A8;
+  --zn-light-line:#D9E1F0;
+  --zn-light-border:#DFE6F2;
+  --zn-light-chip:#EEF2F9;
+  --zn-light-note:#E6ECF6;
+  --zn-light-dot:#B7C2DB;
+  --zn-gift:#0E9F6E;
+  --zn-gift-rgb:14,159,110;
+  --zn-warning:#E0A030;
+  --zn-danger-deep:#E5484D;
+  --zn-persona-lawyer-rgb:59,75,216;
+  --zn-persona-journalist-rgb:194,65,12;
+  --zn-persona-executive-rgb:109,40,217;
+  --zn-persona-merchant-rgb:3,105,161;
+  --zn-font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --zn-font-sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --zn-weight-regular:400;
+  --zn-weight-medium:500;
+  --zn-weight-semibold:600;
+  --zn-weight-bold:700;
+  --zn-weight-extrabold:800;
+  --zn-space-0:0px;
+  --zn-space-2:2px;
+  --zn-space-3:3px;
+  --zn-space-4:4px;
+  --zn-space-5:5px;
+  --zn-space-6:6px;
+  --zn-space-7:7px;
+  --zn-space-8:8px;
+  --zn-space-9:9px;
+  --zn-space-10:10px;
+  --zn-space-11:11px;
+  --zn-space-12:12px;
+  --zn-space-13:13px;
+  --zn-space-14:14px;
+  --zn-space-15:15px;
+  --zn-space-16:16px;
+  --zn-space-18:18px;
+  --zn-space-20:20px;
+  --zn-space-22:22px;
+  --zn-space-23:23px;
+  --zn-space-24:24px;
+  --zn-space-25:25px;
+  --zn-space-26:26px;
+  --zn-space-28:28px;
+  --zn-space-29:29px;
+  --zn-space-30:30px;
+  --zn-space-32:32px;
+  --zn-space-34:34px;
+  --zn-space-36:36px;
+  --zn-space-40:40px;
+  --zn-space-44:44px;
+  --zn-space-48:48px;
+  --zn-space-52:52px;
+  --zn-space-56:56px;
+  --zn-space-60:60px;
+  --zn-space-64:64px;
+  --zn-space-72:72px;
+  --zn-space-80:80px;
+  --zn-space-96:96px;
+  --zn-radius-2:2px;
+  --zn-radius-3:3px;
+  --zn-radius-4:4px;
+  --zn-radius-5:5px;
+  --zn-radius-6:6px;
+  --zn-radius-8:8px;
+  --zn-radius-9:9px;
+  --zn-radius-10:10px;
+  --zn-radius-12:12px;
+  --zn-radius-14:14px;
+  --zn-radius-16:16px;
+  --zn-radius-18:18px;
+  --zn-radius-20:20px;
+  --zn-radius-22:22px;
+  --zn-radius-24:24px;
+  --zn-radius-25:25px;
+  --zn-radius-28:28px;
+  --zn-radius-32:32px;
+  --zn-radius-40:40px;
+  --zn-radius-44:44px;
+  --zn-radius-84:84px;
+  --zn-radius-pill:999px;
+  --zn-radius-round:50%;
+  --zn-blur-4:4px;
+  --zn-blur-6:6px;
+  --zn-blur-10:10px;
+  --zn-blur-12:12px;
+  --zn-blur-14:14px;
+  --zn-blur-16:16px;
+  --zn-blur-4-9:4.9px;
+  --zn-blur-5-74:5.74px;
+  --zn-ease-brand:cubic-bezier(.2,.7,.2,1);
+  --zn-ease-in-out:ease-in-out;
+  --zn-ease-out:ease-out;
+  --zn-ease-linear:linear;
+  --zn-dur-120:.12s;
+  --zn-dur-150:.15s;
+  --zn-dur-200:.2s;
+  --zn-dur-250:.25s;
+  --zn-dur-300:.3s;
+  --zn-dur-350:.35s;
+  --zn-dur-400:.4s;
+  --zn-dur-450:.45s;
+  --zn-dur-500:.5s;
+  --zn-dur-550:.55s;
+  --zn-dur-600:.6s;
+  --zn-dur-700:.7s;
+  --zn-dur-800:.8s;
+  --zn-dur-900:.9s;
+  --zn-dur-1000:1s;
+  --zn-dur-1200:1.2s;
+  --zn-dur-1400:1.4s;
+  --zn-dur-1600:1.6s;
+  --zn-dur-2200:2.2s;
+  --zn-dur-2400:2.4s;
+  --zn-dur-2600:2.6s;
+  --zn-bp-xl:1180px; /* solo referencia: las media queries usan el valor literal */
+  --zn-bp-lg:1023px; /* solo referencia: las media queries usan el valor literal */
+  --zn-bp-checkout:980px; /* solo referencia: las media queries usan el valor literal */
+  --zn-bp-md:640px; /* solo referencia: las media queries usan el valor literal */
+  --zn-bp-graphene-tablet:600px; /* solo referencia: las media queries usan el valor literal */
+  --zn-bp-sm:380px; /* solo referencia: las media queries usan el valor literal */
+}
+
+/* ---------- semánticos ---------- */
+:root{
+  --color-ink:var(--zn-ink);
+  --rgb-ink:var(--zn-ink-rgb);
+  --color-navy:var(--zn-navy);
+  --rgb-navy:var(--zn-navy-rgb);
+  --color-ice:var(--zn-ice);
+  --rgb-ice:var(--zn-ice-rgb);
+  --color-mist:var(--zn-mist);
+  --rgb-mist:var(--zn-mist-rgb);
+  --color-muted:var(--zn-muted);
+  --rgb-muted:var(--zn-muted-rgb);
+  --color-signal:var(--zn-signal);
+  --rgb-signal:var(--zn-signal-rgb);
+  --color-aurora:var(--zn-aurora);
+  --rgb-aurora:var(--zn-aurora-rgb);
+  --color-alert:var(--zn-alert);
+  --rgb-alert:var(--zn-alert-rgb);
+  --color-amber:var(--zn-amber);
+  --rgb-amber:var(--zn-amber-rgb);
+  --color-white:var(--zn-white);
+  --rgb-white:var(--zn-white-rgb);
+  --color-bg:var(--zn-ink);
+  --color-text:var(--zn-mist);
+  --color-text-soft:var(--zn-ice);
+  --color-text-muted:var(--zn-muted);
+  --color-accent:var(--zn-signal);
+  --color-accent-2:var(--zn-aurora);
+  --color-danger:var(--zn-alert);
+  --color-warning:var(--zn-amber);
+  --color-on-accent:var(--zn-ink);
+  --color-line:rgba(var(--zn-ice-rgb),.16);
+  --color-line-strong:rgba(var(--zn-ice-rgb),.28);
+  --color-line-ghost:rgba(var(--zn-ice-rgb),.32);
+  --color-glass:rgba(var(--zn-white-rgb),.06);
+  --color-glass-checkout:rgba(var(--zn-white-rgb),.05);
+  --color-nav-bg:rgba(var(--zn-ink-rgb),.88);
+  --color-menu-bg:rgba(var(--zn-ink-rgb),.98);
+  --color-chip-bg:rgba(var(--zn-ink-rgb),.9);
+  --color-light-bg:var(--zn-mist);
+  --color-light-surface:var(--zn-white);
+  --color-light-title:var(--zn-navy);
+  --color-light-text:var(--zn-light-text);
+  --color-light-eyebrow:var(--zn-light-eyebrow);
+  --font-mono:var(--zn-font-mono);
+  --font-sans:var(--zn-font-sans);
+  --radius-button:var(--zn-radius-8);
+  --radius-button-checkout:var(--zn-radius-12);
+  --radius-card:var(--zn-radius-24);
+  --radius-card-checkout:var(--zn-radius-18);
+  --radius-tile:var(--zn-radius-12);
+  --radius-field:var(--zn-radius-12);
+  --radius-pill:var(--zn-radius-pill);
+  --radius-round:var(--zn-radius-round);
+  --shadow-button-primary-hover:0 8px 28px rgba(var(--zn-signal-rgb),.4);
+  --shadow-button-primary-hover-checkout:0 8px 26px rgba(var(--zn-signal-rgb),.38);
+  --shadow-button-navy-hover:0 8px 24px -8px rgba(var(--zn-navy-rgb),.6);
+  --shadow-card-hover:0 18px 40px -18px rgba(var(--zn-black-rgb),.6);
+  --shadow-card-light:0 10px 30px -18px rgba(var(--zn-navy-rgb),.35);
+  --shadow-card-light-hover:0 22px 40px -20px rgba(var(--zn-navy-rgb),.45);
+  --shadow-chip:0 10px 30px -12px rgba(var(--zn-black-rgb),.6);
+  --shadow-focus-ring:0 0 0 3px rgba(var(--zn-signal-rgb),.18);
+  --shadow-danger-ring:0 0 0 3px rgba(var(--zn-alert-rgb),.15);
+  --shadow-selected:0 0 0 1px var(--zn-signal) inset;
+  --shadow-panel:0 30px 80px -40px rgba(var(--zn-black-rgb),.7);
+  --shadow-modal:0 40px 120px -30px rgba(var(--zn-black-rgb),.8);
+  --shadow-bar:0 -18px 40px -20px rgba(var(--zn-black-rgb),.7);
+  --ease:var(--zn-ease-brand);
+  --dur-fast:var(--zn-dur-200);
+  --dur-base:var(--zn-dur-250);
+  --dur-medium:var(--zn-dur-300);
+  --dur-slow:var(--zn-dur-450);
+  --dur-reveal:var(--zn-dur-800);
+  --layout-max-width:1280px;
+  --layout-max-width-checkout:1180px;
+  --layout-nav-height:76px;
+  --layout-nav-height-mobile:64px;
+  --layout-header-height-checkout:68px;
+}
+
+/* ---------- superficies (una por página; ver tokens.json > surface) ---------- */
+.surface-landing{--pad:96px;--sy:96px;--type-h1-weight:800;--type-h1-size:48px;--type-h1-line:56px;--type-h1-track:-.96px;--type-h1-family:var(--font-mono);--type-h1-color:var(--color-mist);--type-h2-weight:800;--type-h2-size:36px;--type-h2-line:44px;--type-h2-track:-1px;--type-h2-family:var(--font-mono);--type-h2-color:var(--color-mist);--type-h4-weight:800;--type-h4-size:22px;--type-h4-line:30px;--type-h4-track:-.4px;--type-h4-family:var(--font-mono);--type-h4-color:var(--color-mist);--type-h5-weight:800;--type-h5-size:18px;--type-h5-line:26px;--type-h5-track:normal;--type-h5-family:var(--font-mono);--type-h5-color:var(--color-mist);--type-body-weight:400;--type-body-size:16px;--type-body-line:24px;--type-body-track:normal;--type-body-family:var(--font-sans);--type-body-color:var(--color-ice);--type-body-lg-weight:400;--type-body-lg-size:18px;--type-body-lg-line:28px;--type-body-lg-track:normal;--type-body-lg-family:var(--font-sans);--type-body-lg-color:var(--color-ice);--type-small-weight:400;--type-small-size:14px;--type-small-line:20px;--type-small-track:normal;--type-small-family:var(--font-sans);--type-small-color:var(--color-ice);--type-caption-weight:400;--type-caption-size:12px;--type-caption-line:16px;--type-caption-track:normal;--type-caption-family:var(--font-sans);--type-caption-color:var(--color-muted);--type-mono-weight:500;--type-mono-size:14px;--type-mono-line:20px;--type-mono-track:normal;--type-mono-family:var(--font-mono);--type-mono-color:currentColor;--type-eyebrow-weight:500;--type-eyebrow-size:12px;--type-eyebrow-line:16px;--type-eyebrow-track:.96px;--type-eyebrow-family:var(--font-mono);--type-eyebrow-color:var(--color-ice)}
+.surface-home{--type-h1-size:44px;--type-h1-line:52px}
+.surface-graphene{--type-display-weight:800;--type-display-size:42px;--type-display-line:52px;--type-display-track:-1.5px;--type-display-family:var(--font-mono);--type-display-color:var(--color-mist);--type-h1-weight:800;--type-h1-size:36px;--type-h1-line:44px;--type-h1-track:-1.5px;--type-h1-family:var(--font-mono);--type-h1-color:var(--color-mist);--type-h2-weight:800;--type-h2-size:28px;--type-h2-line:36px;--type-h2-track:-1px;--type-h2-family:var(--font-mono);--type-h2-color:var(--color-mist);--type-h3-weight:800;--type-h3-size:22px;--type-h3-line:30px;--type-h3-track:-.5px;--type-h3-family:var(--font-mono);--type-h3-color:var(--color-mist);--type-h4-weight:800;--type-h4-size:18px;--type-h4-line:26px;--type-h4-track:normal;--type-h4-family:var(--font-mono);--type-h4-color:var(--color-mist);--type-body-weight:400;--type-body-size:16px;--type-body-line:24px;--type-body-track:normal;--type-body-family:var(--font-sans);--type-body-color:var(--color-ice);--type-body-lg-weight:400;--type-body-lg-size:18px;--type-body-lg-line:28px;--type-body-lg-track:normal;--type-body-lg-family:var(--font-sans);--type-body-lg-color:var(--color-ice);--type-mono-weight:500;--type-mono-size:14px;--type-mono-line:20px;--type-mono-track:normal;--type-mono-family:var(--font-mono);--type-mono-color:currentColor;--type-eyebrow-weight:500;--type-eyebrow-size:12px;--type-eyebrow-line:16px;--type-eyebrow-track:.96px;--type-eyebrow-family:var(--font-mono);--type-eyebrow-color:currentColor;--type-semi-weight:600;--type-semi-size:16px;--type-semi-line:24px;--type-semi-track:normal;--type-semi-family:var(--font-sans);--type-semi-color:var(--color-white)}
+.surface-checkout{--pad:40px;--type-h2-weight:800;--type-h2-size:30px;--type-h2-line:38px;--type-h2-track:-.8px;--type-h2-family:var(--font-mono);--type-h2-color:currentColor;--type-h3-weight:800;--type-h3-size:24px;--type-h3-line:32px;--type-h3-track:-.5px;--type-h3-family:var(--font-mono);--type-h3-color:currentColor;--type-h5-weight:800;--type-h5-size:18px;--type-h5-line:26px;--type-h5-track:normal;--type-h5-family:var(--font-mono);--type-h5-color:currentColor;--type-kicker-weight:500;--type-kicker-size:12px;--type-kicker-line:16px;--type-kicker-track:.96px;--type-kicker-family:var(--font-mono);--type-kicker-color:var(--color-signal);--type-lead-weight:400;--type-lead-size:16px;--type-lead-line:24px;--type-lead-track:normal;--type-lead-family:var(--font-sans);--type-lead-color:var(--color-ice);--type-lead-sm-weight:400;--type-lead-sm-size:14px;--type-lead-sm-line:20px;--type-lead-sm-track:normal;--type-lead-sm-family:var(--font-sans);--type-lead-sm-color:var(--color-ice)}
+@media (max-width:1180px){
+  .surface-landing{--pad:56px}
+}
+@media (max-width:1023px){
+  .surface-landing{--pad:40px;--sy:80px}
+  .surface-home{--type-h1-size:34px;--type-h1-line:42px}
+  .surface-graphene{--pad:max(20px,env(safe-area-inset-left));--type-display-size:30px;--type-display-line:38px;--type-display-track:-1px;--type-h1-size:30px;--type-h1-line:38px;--type-h1-track:-1px;--type-h2-size:24px;--type-h2-line:32px;--type-h2-track:-.6px;--type-h3-size:19px;--type-h3-line:26px;--type-h3-track:-.3px;--type-body-lg-size:16px;--type-body-lg-line:26px}
+}
+@media (min-width:600px) and (max-width:1023px){
+  .surface-graphene{--type-h1-size:34px;--type-h1-line:42px}
+}
+@media (max-width:640px){
+  .surface-landing{--pad:max(20px,env(safe-area-inset-left));--sy:64px;--type-h1-size:32px;--type-h1-line:40px;--type-h1-track:-.8px;--type-h2-size:26px;--type-h2-line:34px;--type-h2-track:-.6px;--type-h4-size:19px;--type-h4-line:27px;--type-body-lg-size:16px;--type-body-lg-line:26px}
+  .surface-home{--type-h1-size:29px;--type-h1-line:36px;--type-h1-track:-.7px}
+  .surface-checkout{--pad:max(16px,env(safe-area-inset-left));--type-h2-size:24px;--type-h2-line:31px}
+}
+@media (max-width:380px){
+  .surface-landing{--type-h1-size:28px;--type-h1-line:36px;--type-h2-size:23px;--type-h2-line:31px}
+  .surface-home{--type-h1-size:26px;--type-h1-line:33px}
+  .surface-graphene{--type-display-size:27px;--type-display-line:35px;--type-h1-size:27px;--type-h1-line:35px;--type-h2-size:22px;--type-h2-line:30px}
+}
